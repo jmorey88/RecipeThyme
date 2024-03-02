@@ -2,62 +2,84 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import authService from "./authService";
 
 const initialState = {
-  user: null,
-  isError: false,
-  isSuccess: false,
-  isLOading: false,
-  message: "",
+  currentUser: null,
+  // signup: {
+  //   isError: false,
+  //   isSuccess: false,
+  //   isLoading: false,
+  // },
+  // login: {
+  //   isError: false,
+  //   isSuccess: false,
+  //   isLoading: false,
+  // },
+  // logout: {
+  //   isError: false,
+  //   isSuccess: false,
+  //   isLoading: false,
+  // },
 };
 
-export const authSlice = createSlice({
-  name: "auth",
+export const sessionSlice = createSlice({
+  name: "session",
   initialState,
   reducers: {
-    reset: (state) => {
-      state.isLoading = false;
-      state.isError = false;
-      state.issuccess = false;
-      state.message = "";
-    },
+    //   logout: (state) => {
+    //     state.currentUser = null;
+    //     Perform any additional logout operations here
+    //   },
+    // reset: (state) => {
+    //   state.signup.isLoading = false;
+    //   state.signup.isError = false;
+    //   state.signup.isSuccess = false;
+    //   state.login.isLoading = false;
+    //   state.login.isError = false;
+    //   state.login.isSuccess = false;
+    //   state.logout.isLoading = false;
+    //   state.logout.isError = false;
+    //   state.logout.isSuccess = false;
+    // },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(signUp.pending, (state) => {
-        state.isLoading = true;
-      })
+      // .addCase(signUp.pending, (state) => {
+      //   state.signup.isLoading = true;
+      // })
       .addCase(signUp.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.isSuccess = true;
-        state.user = action.payload;
+        // state.signup.isLoading = false;
+        // state.signup.isSuccess = true;
+        state.currentUser = action.payload;
       })
-      .addCase(signUp.rejected, (state, action) => {
-        state.isLoading = false;
-        state.isError = true;
-        state.message = action.payload;
-        state.user = null;
+      .addCase(signUp.rejected, (state) => {
+        // state.signup.isLoading = false;
+        // state.signup.isError = true;
+        state.currentUser = null;
       })
-      .addCase(login.pending, (state) => {
-        state.isLoading = true;
-      })
+      // .addCase(login.pending, (state) => {
+      //   state.login.isLoading = true;
+      // })
       .addCase(login.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.isSuccess = true;
-        state.user = action.payload;
+        state.currentUser = action.payload;
       })
-      .addCase(login.rejected, (state, action) => {
-        state.isLoading = false;
-        state.isError = true;
-        state.message = action.payload;
-        state.user = null;
+      .addCase(login.rejected, (state) => {
+        // state.login.isLoading = false;
+        // state.login.isError = true;
+        state.currentUser = null;
       })
+      // .addCase(logout.pending, (state) => {
+      //   state.logout.isLoading = true;
+      //   state.logout.isSuccess = false;
+      // })
       .addCase(logout.fulfilled, (state) => {
-        state.user = null;
+        // state.logout.isLoading = false;
+        // state.logout.isSuccess = true;
+        state.currentUser = null;
       });
   },
 });
 
 export const signUp = createAsyncThunk(
-  "auth/signUp",
+  "session/signUp",
   async (user, thunkAPI) => {
     try {
       return await authService.postSignUp(user);
@@ -74,11 +96,10 @@ export const signUp = createAsyncThunk(
 );
 
 export const login = createAsyncThunk(
-  "auth/login",
+  "session/login",
   async (userCredentials, thunkAPI) => {
     try {
       const data = await authService.postLogin(userCredentials);
-      localStorage.setItem("user", JSON.stringify(data));
       return data;
     } catch (error) {
       const message =
@@ -91,10 +112,9 @@ export const login = createAsyncThunk(
   }
 );
 
-export const logout = createAsyncThunk("auth/logout", async () => {
+export const logout = createAsyncThunk("session/logout", async () => {
   await authService.deleteSession();
-  localStorage.removeItem("user");
 });
 
-export const { reset } = authSlice.actions;
-export default authSlice.reducer;
+// export const { reset } = sessionSlice.actions;
+export default sessionSlice.reducer;

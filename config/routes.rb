@@ -17,4 +17,10 @@ Rails.application.routes.draw do
   end
 
   root 'static_pages#root'
+
+  get '*path', to: 'static_pages#root', constraints: ->(request) do
+  !request.xhr? && request.format.html?
+  end
+
 end
+

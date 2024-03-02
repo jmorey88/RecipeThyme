@@ -1,16 +1,19 @@
 import React from "react";
+import styles from "./HomePage.module.css";
 import { Link } from "react-router-dom";
 
 function HomePage() {
   return (
-    <div>
-      <h1>Welcome to RecipeThyme. Please signup or log in.</h1>
-      <Link to="/signup" className="btn btn-primary">
-        Sign Up
-      </Link>
-      <Link to="login" className="btn btn-secondary">
-        Log In
-      </Link>
+    <div className={styles.homePageBackground}>
+      <div className={styles.home}>
+        <h1 className={styles.heading}>
+          Get Inspired Get Organized Get Cooking!
+        </h1>
+        <p className={styles.newMemberTxt}>New Members Sign Up Here</p>
+        <Link to="/signup" className={styles.signupButton}>
+          Create an Account
+        </Link>
+      </div>
     </div>
   );
 }

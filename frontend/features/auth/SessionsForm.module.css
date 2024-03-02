@@ -1,0 +1,70 @@
+.sessionsPage {
+  display: flex;
+  flex-direction: row;
+}
+
+.imgContainer {
+  width: 55%;
+}
+
+.img {
+  width: 100%; 
+}
+
+.sessionsForm {
+  width: 45%;
+}
+
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5%;
+  font-family: "Poppins",
+    "Poppins SC",
+    sans-serif;
+}
+
+form div {
+  margin-top: 5%;
+  width: 74%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+form input {
+  width: 61%;
+  padding: 10px;
+  margin: 5px 0;
+  font-size: 17px;
+  border-radius: 25px;
+  border: 2px solid black;
+}
+
+.sessionButton {
+  margin-top: 9%;
+  background-color: rgb(43 148 179);
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 30px;
+  border: solid 2px black;
+  cursor: pointer;
+  font-size: 18px;
+  letter-spacing: .5px;
+  font-weight: bolder;
+  font-family: "Poppins",
+    "Poppins SC",
+    sans-serif;
+  height: 43px;
+  width: 50%;
+}
+
+button:hover {
+  background-color: rgb(86, 170, 196);
+}
+
+
+

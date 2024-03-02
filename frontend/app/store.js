@@ -4,7 +4,7 @@ import authReducer from "../features/auth/authSlice";
 
 export const store = configureStore({
   reducer: {
-    auth: authReducer,
+    session: authReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });

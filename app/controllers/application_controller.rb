@@ -6,6 +6,18 @@ class ApplicationController < ActionController::Base
   skip_forgery_protection
   helper_method :current_user, :logged_in?
 
+  # def fallback_index_html
+  #   render :file => 'public/index.html'
+  # end
+
+  # def fallback_index_html
+  #   render file: Rails.root.join('public', 'index.html'), layout: false
+  # end
+
+  # def index
+  #   render layout: 'application', html: ''
+  # end
+
   private
 
   def current_user
@@ -24,6 +36,7 @@ class ApplicationController < ActionController::Base
   end
 
   def logout
+    current_user.reset_session_token! if current_user
     reset_session
     session[:session_token] = nil
     @current_user = nil
@@ -34,5 +47,6 @@ class ApplicationController < ActionController::Base
       render json: { base: ['invalid credentials'] }, status: 401
     end
   end
+
 
 end

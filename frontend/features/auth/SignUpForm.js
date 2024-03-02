@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { signUp } from "./authSlice";
+import styles from "./SessionsForm.module.css";
 
 const SignUpForm = () => {
   const [userData, setUserData] = useState({
@@ -13,21 +14,15 @@ const SignUpForm = () => {
   });
 
   const dispatch = useDispatch();
-  const { isLoading, isError, isSuccess, message } = useSelector(
-    (state) => state.auth
-  );
+  const currentUser = useSelector((state) => state.session.currentUser);
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  useEffect(() => {
-    if (isError) {
-      alert(message);
-    }
-    if (isSuccess) {
-      alert("Sign up successful");
-      navigate("/recipe-gallery");
-    }
-  }, [isLoading, isError, isSuccess, message, navigate]);
+  // useEffect(() => {
+  //   if (currentUser) {
+  //     navigate("/recipe-gallery");
+  //   }
+  // }, [currentUser, navigate]);
 
   const handleChange = (e) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
@@ -39,62 +34,69 @@ const SignUpForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Sign Up</h2>
-      <div>
-        <label>First Name</label>
-        <input
-          type="text"
-          name="firstName"
-          value={userData.firstName}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div>
-        <label>Last Name</label>
-        <input
-          type="text"
-          name="lastName"
-          value={userData.lastName}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div>
-        <label>Username</label>
-        <input
-          type="text"
-          name="username"
-          value={userData.username}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div>
-        <label>Email</label>
-        <input
-          type="email"
-          name="email"
-          value={userData.email}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div>
-        <label>Password</label>
-        <input
-          type="password"
-          name="password"
-          value={userData.password}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <button type="submit" disabled={isLoading}>
-        Sign Up
-      </button>
-    </form>
+    <div>
+      <form className={styles.form} onSubmit={handleSubmit}>
+        <h1>Sign Up</h1>
+        <div>
+          {/* <label>First Name</label> */}
+          <input
+            type="text"
+            name="firstName"
+            placeholder="First Name"
+            value={userData.firstName}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          {/* <label>Last Name</label> */}
+          <input
+            type="text"
+            name="lastName"
+            placeholder="Last Name"
+            value={userData.lastName}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          {/* <label>Username</label> */}
+          <input
+            type="text"
+            name="username"
+            placeholder="Username"
+            value={userData.username}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          {/* <label>Email</label> */}
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={userData.email}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          {/* <label>Password</label> */}
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={userData.password}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <button type="submit" className={styles.sessionButton}>
+          Sign Up
+        </button>
+      </form>
+    </div>
   );
 };
 

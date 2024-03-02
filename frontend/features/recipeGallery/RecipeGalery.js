@@ -4,20 +4,14 @@ import { useDispatch } from "react-redux";
 import { logout } from "../auth/authSlice";
 
 const RecipeGallery = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    dispatch(logout());
-    navigate("/");
-  };
+  // const navigate = useNavigate();
 
   return (
     <div>
       <h1>Recipe Gallery</h1>
       <h2>welcome user</h2>
-      <button onClick={handleLogout}>Logout</button>
     </div>
   );
 };

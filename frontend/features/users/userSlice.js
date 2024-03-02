@@ -1,8 +1,4 @@
-import {
-  createSlice,
-  ccreateAsyncThunk,
-  createAsyncThunk,
-} from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import userService from "../../services/userservice";
 
 const initialState = {

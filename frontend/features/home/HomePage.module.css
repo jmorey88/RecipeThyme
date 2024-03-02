@@ -1,0 +1,75 @@
+.home {
+  /* margin: 1rem; */
+  /* background-color: rgba(221, 234, 240, 0.69); */
+  /* min-height: 100vh; */
+  /* width: 100%; */
+  /* margin: 0; */
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  max-width: 400px;
+  margin-top: 7%;
+  margin-right: 3%;
+  /* margin-left: 50%; */
+}
+
+.homePageBackground {
+  background-image: url('https://recipe-thyme-content.s3.us-west-1.amazonaws.com/app-images/RecipeThymeHomeBkgrnd.png');
+  background-size: 100% auto;
+  background-position: center;
+  min-height: 100vh;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  /* padding-right: 10%; */
+  background-repeat: no-repeat;
+}
+
+.heading {
+  font-family: "Poppins",
+    "Poppins SC",
+    sans-serif;
+  color: black;
+  width: 84%;
+  text-align: center;
+  font-size: 300%;
+  line-height: 161%;
+}
+
+.newMemberTxt {
+  font-family: "Poppins",
+    "Poppins SC",
+    sans-serif;
+  color: black;
+  width: 84%;
+  text-align: center;
+  font-size: 161%;
+  margin-top: 14%;
+}
+
+.signupButton {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: rgb(43 148 179);
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 18px;
+  letter-spacing: .5px;
+  font-weight: bolder;
+  font-family: "Poppins",
+    "Poppins SC",
+    sans-serif;
+  margin-top: 13%;
+  margin-left: 20%;
+  height: 25px;
+  padding-top: 4%;
+}
+
+.signupButton:hover {
+  background-color: rgb(86, 170, 196);
+}

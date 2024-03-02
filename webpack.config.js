@@ -21,6 +21,22 @@ module.exports = {
           },
         },
       },
+
+      {
+        test: /\.module\.css$/, // Targets only CSS files ending with .module.css
+        use: [
+          "style-loader",
+          {
+            loader: "css-loader",
+            options: {
+              modules: {
+                mode: "local",
+                localIdentName: "[name]__[local]___[hash:base64:5]", // Configures the generated class names
+              },
+            },
+          },
+        ],
+      },
     ],
   },
   // devtool: "eval-source-map",
