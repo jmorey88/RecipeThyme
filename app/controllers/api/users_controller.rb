@@ -18,9 +18,13 @@ class Api::UsersController < ApplicationController
     @users = User.all
   end
 
+  def current
+    @user = current_user if logged_in?
+  end
+
   private
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :username, :email, :password)
+    params.require(:user).permit(:first_name, :last_name, :username, :email, :password, :password_confirmation)
   end 
 end

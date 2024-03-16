@@ -3,16 +3,18 @@ import { useNavigate } from "react-router";
 import { Link, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import styles from "./NavBar.module.css";
-import { logout } from "../auth/authSlice";
+import { logout } from "../auth/sessionSlice.js";
+import { resetStore } from "../../utils/store_util.jsx";
 
 const NavBar = () => {
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    dispatch(logout());
+  const handleLogout = async () => {
+    await dispatch(logout());
     navigate("/");
+    dispatch(resetStore());
   };
   const location = useLocation();
 
@@ -33,10 +35,7 @@ const NavBar = () => {
         <button onClick={handleLogout} className={styles.navbarButton}>
           Logout
         </button>
-      ) : // <Link to="/" className={styles.sessionLink}>
-      //   Logout
-      // </Link>
-      location.pathname === "/login" ? (
+      ) : location.pathname === "/login" ? (
         <Link to="/signup" className={styles.sessionLink}>
           SignUp
         </Link>

@@ -9,5 +9,5 @@ export const AuthRoute = ({ children }) => {
 
 export const ProtectedRoute = ({ children }) => {
   const loggedIn = Boolean(useSelector(state => state.session.currentUser));
-  return loggedIn ? children : <Navigate to="/login" replace />;
+  return loggedIn ? children : <Navigate to="/" replace />;
 };

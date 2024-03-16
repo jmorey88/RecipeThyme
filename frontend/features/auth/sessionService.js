@@ -1,5 +1,3 @@
-const API_BASE_URL = "/api/auth";
-
 export const postSignUp = async (userData) => {
   const response = await fetch("http://localhost:3000/api/users", {
     method: "POST",
@@ -13,6 +11,7 @@ export const postSignUp = async (userData) => {
         username: userData.username,
         email: userData.email,
         password: userData.password,
+        password_confirmation: userData.password_confirmation,
       },
     }),
   });
@@ -62,8 +61,6 @@ export const deleteSession = async () => {
     const errorData = await response.json();
     throw new Error(errorData.message || "Error loggin out");
   }
-
-  localStorage.removeItem("user");
 
   const data = await response.json();
   return data;

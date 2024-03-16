@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router";
-import { login } from "./authSlice";
+import { login } from "./sessionSlice";
 import styles from "./SessionsForm.module.css";
 
 const LoginForm = () => {
@@ -13,16 +12,6 @@ const LoginForm = () => {
   const dispatch = useDispatch();
 
   const currentUser = useSelector((state) => state.session.currentUser);
-
-  // const navigate = useNavigate();
-
-  // const [hasNavigated, setHasNavigated] = useState(false);
-
-  // useEffect(() => {
-  //   if (currentUser) {
-  //     navigate("/recipe-gallery");
-  //   }
-  // }, [currentUser, navigate]);
 
   const handleChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
@@ -37,7 +26,6 @@ const LoginForm = () => {
     <form onSubmit={handleSubmit}>
       <h2>Login</h2>
       <div>
-        {/* <label>Username</label> */}
         <input
           type="username"
           name="username"
@@ -48,7 +36,6 @@ const LoginForm = () => {
         />
       </div>
       <div>
-        {/* <label>Password</label> */}
         <input
           type="password"
           name="password"

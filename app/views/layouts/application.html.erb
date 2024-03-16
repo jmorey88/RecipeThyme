@@ -8,6 +8,20 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+
+    <% if logged_in? %>
+      <script id="user-data" type="application/json">
+        <%= {
+          current_user: {
+            id: current_user.id,
+            username: current_user.username,
+            first_name: current_user.first_name,
+            last_name: current_user.last_name,
+            email: current_user.email
+          }
+        }.to_json.html_safe %>
+      </script>
+    <% end %>
     
   </head>
 

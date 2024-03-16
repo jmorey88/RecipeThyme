@@ -8,9 +8,10 @@ class User < ApplicationRecord
   validates :email, presence: true, length: { maximum: 250 },
   format: {with: URI::MailTo::EMAIL_REGEXP},
   uniqueness: true 
-  validates :session_token, presence: true
   has_secure_password
-  validates :password, presence: true, length: { minimum: 6}
+  validates :password, confirmation: true, length: { minimum: 6}
+  validates :password_confirmation, presence: true
+  validates :session_token, presence: true
   
   before_validation :ensure_session_token
 
@@ -29,6 +30,8 @@ class User < ApplicationRecord
     update_column(:session_token, self.session_token)
     self.session_token
   end
+
+  has_many :recipes, foreign_key: 'author_id'
 
   private 
 

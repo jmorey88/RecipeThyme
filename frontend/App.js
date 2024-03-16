@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./features/home/HomePage";
 import SessionsForm from "./features/auth/SessionsForm";
-import RecipeGallery from "./features/recipeGallery/RecipeGalery";
+import RecipeGallery from "./features/recipes/RecipeGallery.js";
 import NavBar from "./features/navBar/NavBar";
 import { AuthRoute, ProtectedRoute } from "./utils/routes_util.jsx";
 

@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router";
-import { signUp } from "./authSlice";
+import { signUp } from "./sessionSlice";
 import styles from "./SessionsForm.module.css";
 
 const SignUpForm = () => {
@@ -11,18 +10,11 @@ const SignUpForm = () => {
     username: "",
     email: "",
     password: "",
+    password_confirmation: "",
   });
 
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.session.currentUser);
-
-  // const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   if (currentUser) {
-  //     navigate("/recipe-gallery");
-  //   }
-  // }, [currentUser, navigate]);
 
   const handleChange = (e) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
@@ -38,7 +30,6 @@ const SignUpForm = () => {
       <form className={styles.form} onSubmit={handleSubmit}>
         <h1>Sign Up</h1>
         <div>
-          {/* <label>First Name</label> */}
           <input
             type="text"
             name="firstName"
@@ -49,7 +40,6 @@ const SignUpForm = () => {
           />
         </div>
         <div>
-          {/* <label>Last Name</label> */}
           <input
             type="text"
             name="lastName"
@@ -60,7 +50,6 @@ const SignUpForm = () => {
           />
         </div>
         <div>
-          {/* <label>Username</label> */}
           <input
             type="text"
             name="username"
@@ -71,7 +60,6 @@ const SignUpForm = () => {
           />
         </div>
         <div>
-          {/* <label>Email</label> */}
           <input
             type="email"
             name="email"
@@ -82,12 +70,21 @@ const SignUpForm = () => {
           />
         </div>
         <div>
-          {/* <label>Password</label> */}
           <input
             type="password"
             name="password"
             placeholder="Password"
             value={userData.password}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <input
+            type="password"
+            name="password_confirmation"
+            placeholder="Password Confirmation"
+            value={userData.password_confirmation}
             onChange={handleChange}
             required
           />

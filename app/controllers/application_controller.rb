@@ -1,22 +1,7 @@
 class ApplicationController < ActionController::Base
-  # protect_from_forgery with: :null_session
-  # skip_before_action :verify_authenticity_token
-  # protect_from_forgery with: :exception, prepend: true
 
   skip_forgery_protection
   helper_method :current_user, :logged_in?
-
-  # def fallback_index_html
-  #   render :file => 'public/index.html'
-  # end
-
-  # def fallback_index_html
-  #   render file: Rails.root.join('public', 'index.html'), layout: false
-  # end
-
-  # def index
-  #   render layout: 'application', html: ''
-  # end
 
   private
 
