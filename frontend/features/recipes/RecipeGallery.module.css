@@ -1,3 +1,66 @@
+/* .gallery {
+  background-color: rgba(108, 164, 202, 0.452);
+} */
+
+.background {
+  background-image: url(https://recipe-thyme-content.s3.us-west-1.amazonaws.com/app-images/recipeDetailBkgd.png);
+  background-size: cover;
+  /* background-position: center; */
+  background-repeat: no-repeat;
+  min-height: 95vh;
+  background-attachment: fixed;
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; */
+}
+
+.gallery {
+  display: flex;
+  flex-direction: row;
+}
+
+.heading {
+  font-family: "Poppins",
+      "Poppins SC",
+      sans-serif;
+  margin-top: 0;
+  padding-top: 2%;
+  margin-left: 2%;
+}
+
+.newRecipe {
+  color: black;
+  display: flex;
+  flex-direction: row;
+  font-family: "Poppins",
+      "Poppins SC",
+      sans-serif;
+  margin-left: 64%;
+  width: 13%;
+  font-weight: bolder;
+  font-size: larger;
+}
+
+.plus {
+  /* text-underline-position: unset;
+  font-weight: bolder; */
+  width: 9%;
+  height: 2.5vh;
+  margin-top: 14%;
+  padding-right: 4%;
+}
+
+.recipeSquare {
+  border: solid 1px black;
+  margin-top: 2%;
+  margin-left: 2%;
+  width: 14%;
+  height: 25vh;
+  background: lightgray;
+  text-align: center;
+}
+
 .recipesDisplay {
   list-style: none;
   display: flex;
@@ -6,4 +69,30 @@
   font-family: "Poppins",
       "Poppins SC",
       sans-serif;
+  padding-right: 2%;
+}
+
+
+.recipeImg {
+  width: 143px;
+  height: 143px;
+  margin-top: 7%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.recipeTitle {
+  color: black;
+  font-size: medium;
+  margin-top: 0%;
+  text-decoration: underline;
+  text-decoration-color: black;
+}
+
+.endMessage {
+  font-family: "Poppins",
+      "Poppins SC",
+      sans-serif;
+  text-align: center;
+  margin: 2%;
 }

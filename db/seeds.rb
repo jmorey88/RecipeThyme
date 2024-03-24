@@ -34,7 +34,8 @@ User.find_each do |user|
       active_time: "#{rand(10..30)} minutes",
       total_time: "#{rand(30..120)} minutes",
       ingredients: "Ingredient 1, Ingredient 2, Ingredient 3",
-      instructions: "Step 1, Step 2, Step 3"
+      instructions: "Step 1, Step 2, Step 3",
+      image: "https://recipe-thyme-content.s3.us-west-1.amazonaws.com/app-images/defaultPlate+Small.png"
     )
   end
 end

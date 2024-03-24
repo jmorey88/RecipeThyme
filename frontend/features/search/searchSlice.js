@@ -59,7 +59,7 @@ export const searchSlice = createSlice({
           state.currentRequestId === requestId
         ) {
           state.loading = "idle";
-          state.results = [...state.results, ...ids];
+          state.results = [...new Set([...state.results, ...ids])];
           state.currentRequestId = undefined;
           state.metaData = metaData;
         }

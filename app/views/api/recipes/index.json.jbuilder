@@ -3,6 +3,7 @@ json.recipes @recipes do |recipe|
   json.title recipe.title
   json.description recipe.description
   json.author_id recipe.author_id
+  json.image recipe.image
 end
 
 json.meta do

@@ -4,6 +4,7 @@ import HomePage from "./features/home/HomePage";
 import SessionsForm from "./features/auth/SessionsForm";
 import RecipeGallery from "./features/recipes/RecipeGallery.js";
 import NavBar from "./features/navBar/NavBar";
+import RecipeDetail from "./features/recipes/RecipeDetail.js";
 import { AuthRoute, ProtectedRoute } from "./utils/routes_util.jsx";
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route path="/recipe/:recipeId" element={<RecipeDetail />} />
       </Routes>
     </Router>
   );
