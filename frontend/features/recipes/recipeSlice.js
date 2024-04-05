@@ -1,6 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RESET_STORE } from "../../utils/store_util.jsx";
-import { fetchRecipeDetails } from "./recipeService.js";
+import {
+  fetchRecipeDetails,
+  postNewRecipe,
+  uploadRecipeImage,
+} from "./RecipeService.js";
 
 export const recieveRecipeDetails = createAsyncThunk(
   "recipes/receiveDetail",
@@ -8,6 +12,33 @@ export const recieveRecipeDetails = createAsyncThunk(
     const response = await fetchRecipeDetails(recipeId);
     dispatch(updateRecipeDetail(response));
     return response;
+  }
+);
+
+export const createRecipe = createAsyncThunk(
+  "recipes/createNew",
+  async (recipeDetails) => {
+    const response = await postNewRecipe(recipeDetails);
+    if (!response.ok) {
+      Error("error creating recipe");
+    }
+    return response;
+  }
+);
+
+export const handleRecipeImage = createAsyncThunk(
+  "recipes/uploadImage",
+  async ({ recipeId, imageFile }, { rejectWithValue }) => {
+    try {
+      const result = await uploadRecipeImage(recipeId, imageFile);
+      return result;
+      // } catch (error) {
+      //   console.log("result", result);
+      //   return rejectWithValue(result);
+    } catch (error) {
+      console.log("error:", error);
+      return rejectWithValue(error.message);
+    }
   }
 );
 
@@ -43,7 +74,9 @@ export const recipeSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(RESET_STORE, () => initialState);
+    builder.addCase(RESET_STORE, () => {
+      initialState;
+    });
   },
 });
 

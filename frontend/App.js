@@ -5,6 +5,7 @@ import SessionsForm from "./features/auth/SessionsForm";
 import RecipeGallery from "./features/recipes/RecipeGallery.js";
 import NavBar from "./features/navBar/NavBar";
 import RecipeDetail from "./features/recipes/RecipeDetail.js";
+import RecipeForm from "./features/recipes/RecipeCreate.js";
 import { AuthRoute, ProtectedRoute } from "./utils/routes_util.jsx";
 
 function App() {
@@ -37,7 +38,15 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route path="/recipe/:recipeId" element={<RecipeDetail />} />
+        <Route
+          path="/recipe/:recipeId"
+          element={
+            <ProtectedRoute>
+              <RecipeDetail />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/recipe-create" element={<RecipeForm />} />
       </Routes>
     </Router>
   );

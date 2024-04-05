@@ -41,7 +41,8 @@ export const postLogin = async (userCredentials) => {
 
   if (!response.ok) {
     const errorData = await response.json();
-    throw new Error(errorData.message || "Error logging in");
+    console.log("errorData:", errorData);
+    throw new Error(errorData.errors || "Error logging in");
   }
 
   const data = await response.json();

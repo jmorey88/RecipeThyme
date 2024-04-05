@@ -38,7 +38,11 @@ const initialState = {
 export const searchSlice = createSlice({
   name: "search",
   initialState,
-  reducers: {},
+  reducers: {
+    resetSearch: (state) => {
+      state.results = [];
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(searchRecipes.pending, (state, action) => {
@@ -79,5 +83,5 @@ export const searchSlice = createSlice({
   },
 });
 
-export const { clearResults } = searchSlice.actions;
+export const { clearResults, resetSearch } = searchSlice.actions;
 export default searchSlice.reducer;

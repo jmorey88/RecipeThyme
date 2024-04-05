@@ -15,8 +15,8 @@ Rails.application.routes.draw do
     post '/login', to: 'sessions#create'
     delete '/logout', to: 'sessions#destroy'
     get '/current', to: 'users#current'
-    resources :recipes, only: [:create, :show, :update, :index] do
-    end
+    resources :recipes, only: [:create, :show, :update, :index]
+    put '/recipes/:id/upload_image', to: 'recipes#upload_image'
   end
   
   root 'static_pages#root'
@@ -24,4 +24,5 @@ Rails.application.routes.draw do
   get '*path', to: 'static_pages#root', constraints: ->(request) do
   !request.xhr? && request.format.html?
   end
+
 end

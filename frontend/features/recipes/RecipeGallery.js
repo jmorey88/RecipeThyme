@@ -55,13 +55,15 @@ const RecipeGallery = () => {
       <div className={styles.gallery}>
         <h1 className={styles.heading}>Recipe Gallery</h1>
         {/* <img src="" alt="" className={styles.newRecipe} /> */}
-        <Link to="/new" className={styles.newRecipe}>
-          <img
+        <Link to="/recipe-create" className={styles.newRecipe}>
+          {/* <img
             src="https://recipe-thyme-content.s3.us-west-1.amazonaws.com/app-images/plus.png"
             alt="plus"
             className={styles.plus}
-          />
-          <p>New Recipe</p>
+          /> */}
+          <p>
+            + <u>New Recipe</u>
+          </p>
         </Link>
       </div>
 

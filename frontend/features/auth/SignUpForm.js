@@ -27,7 +27,7 @@ const SignUpForm = () => {
 
   return (
     <div>
-      <form className={styles.form} onSubmit={handleSubmit}>
+      <form className={styles.sessionForm} onSubmit={handleSubmit}>
         <h1>Sign Up</h1>
         <div>
           <input

@@ -17,13 +17,16 @@ const LoginForm = () => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(login(credentials));
+    const actionResult = await dispatch(login(credentials));
+    if (actionResult.type.endsWith("rejected")) {
+      alert(actionResult.payload || "Invalid credentials.  Please try again.");
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className={styles.sessionForm}>
       <h2>Login</h2>
       <div>
         <input

@@ -17,7 +17,7 @@ const SessionsForm = () => {
       <div className={styles.imgContainer}>
         <img src={imgUrl} alt="SignUpImg" className={styles.img} />
       </div>
-      <div className={styles.sessionsForm}>
+      <div className={styles.sessionsFormContainer}>
         {isLogin ? <LoginForm /> : <SignUpForm />}
       </div>
     </div>

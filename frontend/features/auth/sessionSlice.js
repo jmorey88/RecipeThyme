@@ -10,7 +10,7 @@ export const sessionSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action) => {
-      state.currentUser = action.payload;
+      state.currentUser = action.payload.currentUser;
     },
   },
   extraReducers: (builder) => {
@@ -57,12 +57,13 @@ export const login = createAsyncThunk(
       const data = await authService.postLogin(userCredentials);
       return data;
     } catch (error) {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
+      // const message =
+      //   (error.response &&
+      //     error.response.data &&
+      //     error.response.data.message) ||
+      //   error.message ||
+      //   error.toString();
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
