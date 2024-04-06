@@ -4,6 +4,7 @@ import {
   fetchRecipeDetails,
   postNewRecipe,
   uploadRecipeImage,
+  destroyRecipe,
 } from "./RecipeService.js";
 
 export const recieveRecipeDetails = createAsyncThunk(
@@ -39,6 +40,14 @@ export const handleRecipeImage = createAsyncThunk(
       console.log("error:", error);
       return rejectWithValue(error.message);
     }
+  }
+);
+
+export const requestDeleteRecipe = createAsyncThunk(
+  "recipes/deleteRecipe",
+  async ({ recipeId }) => {
+    const result = await destroyRecipe(recipeId);
+    return result;
   }
 );
 

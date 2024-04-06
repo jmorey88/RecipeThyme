@@ -58,3 +58,11 @@ export const uploadRecipeImage = async (recipeId, imageFile) => {
 
   return responseData;
 };
+
+export const destroyRecipe = async (recipeId) => {
+  const response = await fetch(`/api/recipes/${recipeId}`, {
+    method: "DELETE",
+  });
+
+  return response.json();
+};

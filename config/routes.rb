@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     post '/login', to: 'sessions#create'
     delete '/logout', to: 'sessions#destroy'
     get '/current', to: 'users#current'
-    resources :recipes, only: [:create, :show, :update, :index]
+    resources :recipes, only: [:create, :show, :update, :index, :destroy]
     put '/recipes/:id/upload_image', to: 'recipes#upload_image'
   end
   

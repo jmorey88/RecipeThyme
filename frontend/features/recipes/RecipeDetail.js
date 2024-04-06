@@ -1,12 +1,18 @@
 import React, { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { recieveRecipeDetails, handleRecipeImage } from "./recipeSlice";
+import {
+  recieveRecipeDetails,
+  handleRecipeImage,
+  requestDeleteRecipe,
+} from "./recipeSlice";
 import styles from "./RecipeDetail.module.css";
 
 const RecipeDetail = () => {
   const { recipeId } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const recipe = useSelector((state) => state.recipes.recipeEntities[recipeId]);
   const currentUserId = useSelector((state) => state.session.currentUser.id);
 
@@ -15,6 +21,22 @@ const RecipeDetail = () => {
       dispatch(recieveRecipeDetails(recipeId));
     }
   }, [dispatch, recipe]);
+
+  const handleDelete = async () => {
+    const isConfirmed = window.confirm(
+      "Are you sure you want to delete this recipe?"
+    );
+
+    if (isConfirmed) {
+      try {
+        await dispatch(requestDeleteRecipe({ recipeId }));
+        alert("Recipe deleted successfully!!!.");
+        navigate("/recipe-gallery");
+      } catch (error) {
+        alert("Failed to delete recipe. Please try agian.");
+      }
+    }
+  };
 
   // const handleImageChange = async (e) => {
   //   const file = e.target.files[0];
@@ -110,7 +132,7 @@ const RecipeDetail = () => {
                 ></img>
                 Edit
               </button>
-              <button className={styles.delete}>
+              <button onClick={handleDelete} className={styles.delete}>
                 <img
                   src="https://recipe-thyme-content.s3.us-west-1.amazonaws.com/app-images/trash-can-icon-28689.png"
                   alt="trash-icon"

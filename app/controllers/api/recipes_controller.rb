@@ -32,7 +32,10 @@ class Api::RecipesController < ApplicationController
   def edit
   end
 
-  def delete
+  def destroy
+    @recipe = Recipe.find(params[:id])
+    @recipe.delete
+    return render json: { message: 'recipe successfully deleted' }, status: :ok
   end
 
   def upload_image
