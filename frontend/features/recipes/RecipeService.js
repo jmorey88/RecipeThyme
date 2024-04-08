@@ -59,6 +59,23 @@ export const uploadRecipeImage = async (recipeId, imageFile) => {
   return responseData;
 };
 
+export const editRecipe = async (recipeId, recipeDetails) => {
+  const response = await fetch(`/api/recipes/${recipeId}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ recipe: recipeDetails }),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.errors || "Error editing Recipe-serv");
+  }
+
+  return response.json();
+};
+
 export const destroyRecipe = async (recipeId) => {
   const response = await fetch(`/api/recipes/${recipeId}`, {
     method: "DELETE",

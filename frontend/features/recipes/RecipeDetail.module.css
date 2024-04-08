@@ -93,6 +93,15 @@ label {
   font-weight: bolder;
 }
 
+.editLink {
+  width: 10%;
+  text-decoration: none;
+  color: black;
+  font-weight: 600;
+  font-size: smaller;
+  letter-spacing: .25px;
+}
+
 .title {
   margin-left: 14%;
 }
@@ -169,8 +178,20 @@ label {
   padding-top: 3%;
 }
 
+.ingredients pre {
+  font-family: "Poppins",
+      "Poppins SC",
+      sans-serif;
+}
+
 .instructions {
   margin-top: 6%;
+}
+
+.instructions pre {
+  font-family: "Poppins",
+      "Poppins SC",
+      sans-serif;
 }
 
 .recipe p {

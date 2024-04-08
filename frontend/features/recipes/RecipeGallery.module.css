@@ -57,12 +57,14 @@
 }
 
 .recipeSquare {
-  border: solid 1px black;
-  margin-top: 2%;
-  margin-left: 2%;
-  width: 14%;
-  height: 25vh;
-  background: lightgray;
+  /* border: solid 1.5px black; */
+  border-radius: 3%;
+  margin-top: 4%;
+  margin-left: 3%;
+  margin-right: 2%;
+  width: 15%;
+  height: 31vh;
+  background: white;
   text-align: center;
 }
 
@@ -79,16 +81,20 @@
 
 
 .recipeImg {
-  width: 143px;
-  height: 143px;
-  margin-top: 7%;
+  width: 100%;
+  height: 24vh;
+  /* margin-top: 7%; */
   object-fit: cover;
   object-position: center;
+  /* border: solid 1px darkgrey; */
+  /* border-radius: 4%; */
+  border-top-right-radius: 4%;
+  border-top-left-radius: 4%;
 }
 
 .recipeTitle {
   color: black;
-  font-size: medium;
+  font-size: 1.3vw;
   margin-top: 0%;
   text-decoration: underline;
   text-decoration-color: black;

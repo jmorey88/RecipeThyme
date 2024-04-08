@@ -29,7 +29,13 @@ class Api::RecipesController < ApplicationController
     @recipes = Recipe.order(updated_at: :desc).limit(page_size).offset(offset)
   end
 
-  def edit
+  def update
+    @recipe = Recipe.find(params[:id])
+    if @recipe.update(recipe_params)
+      render "api/recipes/show", status: :ok
+    else
+      render json: @recipe.errrors.full_messages, status: :unprocessable_entity
+    end
   end
 
   def destroy

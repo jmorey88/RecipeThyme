@@ -5,6 +5,7 @@ import {
   postNewRecipe,
   uploadRecipeImage,
   destroyRecipe,
+  editRecipe,
 } from "./RecipeService.js";
 
 export const recieveRecipeDetails = createAsyncThunk(
@@ -48,6 +49,21 @@ export const requestDeleteRecipe = createAsyncThunk(
   async ({ recipeId }) => {
     const result = await destroyRecipe(recipeId);
     return result;
+  }
+);
+
+export const requestEditRecipe = createAsyncThunk(
+  "recipes/editRecipe",
+  async ({ recipeId, formData }, { rejectWithValue }) => {
+    console.log("recipeId:", recipeId);
+    console.log("formData-slice:", formData);
+    try {
+      const response = await editRecipe(recipeId, formData);
+      console.log("response:", response);
+      return response;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
   }
 );
 

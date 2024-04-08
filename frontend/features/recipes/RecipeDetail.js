@@ -124,14 +124,14 @@ const RecipeDetail = () => {
           </div>
           {isAuthor ? (
             <div className={styles.editDelete}>
-              <button>
+              <Link to={`/recipe/${recipeId}/edit`} className={styles.editLink}>
                 <img
                   src="https://recipe-thyme-content.s3.us-west-1.amazonaws.com/app-images/pencil-icon-png-28-Photoroom.png-Photoroom.png"
                   alt="pencil-icon"
                   className={styles.pencil}
                 ></img>
                 Edit
-              </button>
+              </Link>
               <button onClick={handleDelete} className={styles.delete}>
                 <img
                   src="https://recipe-thyme-content.s3.us-west-1.amazonaws.com/app-images/trash-can-icon-28689.png"
@@ -148,11 +148,15 @@ const RecipeDetail = () => {
         <div className={styles.recipe}>
           <div className={styles.ingredients}>
             <label>Ingredients:</label>
-            <p>{recipe.ingredients}</p>
+            <pre>
+              <p>{recipe.ingredients}</p>
+            </pre>
           </div>
           <div className={styles.instructions}>
             <label>Instructions:</label>
-            <p>{recipe.instructions}</p>
+            <pre>
+              <p>{recipe.instructions}</p>
+            </pre>
           </div>
         </div>
       </div>
