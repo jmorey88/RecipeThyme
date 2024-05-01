@@ -3,9 +3,10 @@ class Api::RecipesController < ApplicationController
   require 'aws-sdk-s3'
 
   def create
-    @recipe = current_user.recipes.new(recipe_params)
+    @recipe = current_user.recipes.new(recipe_params.except(:tag_ids))
 
     if @recipe.save 
+      update_tags(@recipe, params[:recipe][:tag_ids])
       render "api/recipes/show"
     else
       render json: @recipe.errors.full_messages, status: 422
@@ -31,7 +32,8 @@ class Api::RecipesController < ApplicationController
 
   def update
     @recipe = Recipe.find(params[:id])
-    if @recipe.update(recipe_params)
+    if @recipe.update(recipe_params.except(:tag_ids))
+      update_tags(@recipe, params[:recipe][:tag_ids])
       render "api/recipes/show", status: :ok
     else
       render json: @recipe.errrors.full_messages, status: :unprocessable_entity
@@ -80,7 +82,15 @@ class Api::RecipesController < ApplicationController
   # end
 
   def recipe_params
-    params.require(:recipe).permit(:title, :description, :yield, :active_time, :total_time, :ingredients, :instructions)
+    params.require(:recipe).permit(:title, :description, :yield, :active_time, :total_time, :ingredients, :instructions, tag_ids: [])
+  end
+
+  def update_tags(recipe, tag_ids)
+    if tag_ids
+      recipe.tags = Tag.find(tag_ids)
+    else 
+      recipe.taggings.destroy_all
+    end 
   end
 
 end

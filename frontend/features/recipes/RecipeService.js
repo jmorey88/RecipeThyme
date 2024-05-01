@@ -29,6 +29,7 @@ export const postNewRecipe = async (recipeDetails) => {
         ingredients: recipeDetails.ingredients,
         instructions: recipeDetails.instructions,
         // image: recipeDetails.image,
+        tag_ids: recipeDetails.tag_ids,
       },
     }),
   });
@@ -79,6 +80,14 @@ export const editRecipe = async (recipeId, recipeDetails) => {
 export const destroyRecipe = async (recipeId) => {
   const response = await fetch(`/api/recipes/${recipeId}`, {
     method: "DELETE",
+  });
+
+  return response.json();
+};
+
+export const fetchRecipeTags = async () => {
+  const response = await fetch("/api/tags", {
+    method: "GET",
   });
 
   return response.json();

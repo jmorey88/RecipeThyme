@@ -98,18 +98,20 @@ const RecipeDetail = () => {
             alt={recipe.title}
             className={styles.recipeImage}
           />
-          {isAuthor ? (
-            <div className={styles.uploadImageWrapper}>
-              <input type="file" onChange={handleImageChange} id="fileInput" />
-              <label htmlFor="fileInput" className={styles.uploadIcon}>
-                <img
-                  src="https://recipe-thyme-content.s3.us-west-1.amazonaws.com/app-images/camera-2112207_1280.png"
-                  alt="upload"
-                  className={styles.cameraImage}
-                />
-              </label>
-            </div>
-          ) : null}
+          {isAuthor && (
+            <>
+              <input
+                type="file"
+                onChange={handleImageChange}
+                id="fileInput"
+                className={styles.fileInput}
+                style={{
+                  backgroundImage:
+                    "url('https://recipe-thyme-content.s3.us-west-1.amazonaws.com/app-images/camera-2112207_1280.png')",
+                }}
+              />
+            </>
+          )}
         </div>
         <div className={styles.recipeSpecs}>
           <h1 className={styles.title}>{recipe.title}</h1>
@@ -148,15 +150,15 @@ const RecipeDetail = () => {
         <div className={styles.recipe}>
           <div className={styles.ingredients}>
             <label>Ingredients:</label>
-            <pre>
+            <div>
               <p>{recipe.ingredients}</p>
-            </pre>
+            </div>
           </div>
           <div className={styles.instructions}>
             <label>Instructions:</label>
-            <pre>
+            <div>
               <p>{recipe.instructions}</p>
-            </pre>
+            </div>
           </div>
         </div>
       </div>
@@ -165,3 +167,31 @@ const RecipeDetail = () => {
 };
 
 export default RecipeDetail;
+
+{
+  /* <div className={styles.imageWrapper}>
+  <img src={recipe.image} alt={recipe.title} className={styles.recipeImage} />
+  {isAuthor ? (
+    <div className={styles.uploadImageWrapper}>
+      <input type="file" onChange={handleImageChange} id="fileInput" />
+      <label htmlFor="fileInput" className={styles.uploadIcon}>
+        <img
+          src="https://recipe-thyme-content.s3.us-west-1.amazonaws.com/app-images/camera-2112207_1280.png"
+          alt="upload"
+          className={styles.cameraImage}
+        />
+      </label>
+    </div>
+  ) : null}
+</div>; */
+}
+
+{
+  /* <label htmlFor="fileInput" className={styles.uploadIcon}>
+  <img
+    src="https://recipe-thyme-content.s3.us-west-1.amazonaws.com/app-images/camera-2112207_1280.png"
+    alt="upload"
+    // className={styles.cameraImage}
+  />
+</label>; */
+}

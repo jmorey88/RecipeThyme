@@ -20,6 +20,7 @@ export const recieveRecipeDetails = createAsyncThunk(
 export const createRecipe = createAsyncThunk(
   "recipes/createNew",
   async (recipeDetails) => {
+    console.log({ recipeDetails });
     const response = await postNewRecipe(recipeDetails);
     if (!response.ok) {
       Error("error creating recipe");
@@ -54,11 +55,11 @@ export const requestDeleteRecipe = createAsyncThunk(
 
 export const requestEditRecipe = createAsyncThunk(
   "recipes/editRecipe",
-  async ({ recipeId, formData }, { rejectWithValue }) => {
+  async ({ recipeId, recipeData }, { rejectWithValue }) => {
     console.log("recipeId:", recipeId);
-    console.log("formData-slice:", formData);
+    console.log("recipeData-slice:", recipeData);
     try {
-      const response = await editRecipe(recipeId, formData);
+      const response = await editRecipe(recipeId, recipeData);
       console.log("response:", response);
       return response;
     } catch (error) {

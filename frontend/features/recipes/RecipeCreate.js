@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { createRecipe } from "./recipeSlice";
 import { resetSearch } from "../search/searchSlice";
+import { fetchRecipeTags } from "./RecipeService";
 import styles from "./RecipeCreate.module.css";
 import { unstable_useViewTransitionState } from "react-router-dom";
 
@@ -10,6 +11,8 @@ const RecipeForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const [tags, setTags] = useState([]);
+  const [selectedTagIds, setSelectedTagIds] = useState([]);
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -21,7 +24,23 @@ const RecipeForm = () => {
     // image: null,
   });
 
-  const handleChange = (e) => {
+  useEffect(() => {
+    const loadTags = async () => {
+      const tagsData = await fetchRecipeTags();
+      setTags(tagsData);
+    };
+    loadTags();
+  }, []);
+
+  const handleTaggingsChange = (tagId) => {
+    setSelectedTagIds((prevSelectedTags) =>
+      prevSelectedTags.includes(tagId)
+        ? prevSelectedTags.filter((id) => id !== tagId)
+        : [...prevSelectedTags, tagId]
+    );
+  };
+
+  const handleFormChange = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -31,9 +50,16 @@ const RecipeForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const newRecipe = await dispatch(createRecipe(formData)).catch((error) => {
-      console.error("Failed to create the recipe:", error);
-    });
+    const recipeData = {
+      ...formData,
+      tag_ids: selectedTagIds,
+    };
+    console.log({ recipeData });
+    const newRecipe = await dispatch(createRecipe(recipeData)).catch(
+      (error) => {
+        console.error("Failed to create the recipe:", error);
+      }
+    );
     const recipeId = newRecipe.payload.id;
     if (recipeId) {
       dispatch(resetSearch());
@@ -52,7 +78,7 @@ const RecipeForm = () => {
             name="title"
             placeholder="Title"
             value={formData.title}
-            onChange={handleChange}
+            onChange={handleFormChange}
             maxLength="40"
             required
             className={styles.formTitle}
@@ -66,7 +92,7 @@ const RecipeForm = () => {
             cols="50"
             rows="4"
             value={formData.description}
-            onChange={handleChange}
+            onChange={handleFormChange}
             required
           />
         </div>
@@ -77,7 +103,7 @@ const RecipeForm = () => {
               name="yield"
               placeholder="Yield"
               value={formData.yield}
-              onChange={handleChange}
+              onChange={handleFormChange}
               maxLength="20"
               required
             />
@@ -88,7 +114,7 @@ const RecipeForm = () => {
               name="active_time"
               placeholder="Active_Time"
               value={formData.active_time}
-              onChange={handleChange}
+              onChange={handleFormChange}
               maxLength="20"
               required
             />
@@ -99,7 +125,7 @@ const RecipeForm = () => {
               name="total_time"
               placeholder="Total_time"
               value={formData.total_time}
-              onChange={handleChange}
+              onChange={handleFormChange}
               maxLength="20"
               required
             />
@@ -113,7 +139,7 @@ const RecipeForm = () => {
             rows="15"
             cols="70"
             value={formData.ingredients}
-            onChange={handleChange}
+            onChange={handleFormChange}
             required
           />
         </div>
@@ -125,7 +151,7 @@ const RecipeForm = () => {
             rows="15"
             cols="70"
             value={formData.instructions}
-            onChange={handleChange}
+            onChange={handleFormChange}
             required
           />
         </div>
@@ -134,6 +160,18 @@ const RecipeForm = () => {
           <button type="submit">Create Recipe</button>
         </div>
       </form>
+      <div className={styles.tagContainer}>
+        {tags.map((tag) => (
+          <label key={tag.id} className={styles.tagItem}>
+            <input
+              type="checkbox"
+              checked={selectedTagIds.includes(tag.id)}
+              onChange={() => handleTaggingsChange(tag.id)}
+            />
+            {tag.name}
+          </label>
+        ))}
+      </div>
     </div>
   );
 };

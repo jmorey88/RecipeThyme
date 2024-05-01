@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { useParams } from "react-router-dom";
 import { requestEditRecipe, recieveRecipeDetails } from "./recipeSlice";
 import { resetSearch } from "../search/searchSlice";
+import { fetchRecipeTags } from "./RecipeService";
 import styles from "./RecipeCreate.module.css";
 // import { unstable_useViewTransitionState } from "react-router-dom";
 // import { editRecipe } from "./RecipeService";
@@ -12,6 +13,8 @@ const EditRecipeForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const [tags, setTags] = useState([]);
+  const [selectedTagIds, setSelectedTagIds] = useState([]);
   const { recipeId } = useParams();
   const currentRecipe = useSelector(
     (state) => state.recipes.recipeEntities[recipeId]
@@ -28,7 +31,29 @@ const EditRecipeForm = () => {
     // image: null,
   });
 
-  const handleChange = (e) => {
+  useEffect(() => {
+    if (currentRecipe && currentRecipe.tag_ids) {
+      setSelectedTagIds(currentRecipe.tag_ids);
+    }
+  }, [currentRecipe]);
+
+  useEffect(() => {
+    const loadTags = async () => {
+      const tagsData = await fetchRecipeTags();
+      setTags(tagsData);
+    };
+    loadTags();
+  }, []);
+
+  const handleTaggingsChange = (tagId) => {
+    setSelectedTagIds((prevSelectedTags) =>
+      prevSelectedTags.includes(tagId)
+        ? prevSelectedTags.filter((id) => id !== tagId)
+        : [...prevSelectedTags, tagId]
+    );
+  };
+
+  const handleFormChange = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -38,10 +63,16 @@ const EditRecipeForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const recipeData = {
+      ...formData,
+      tag_ids: selectedTagIds,
+    };
+    console.log("recipeData-comp:", recipeData);
     const editRecipeResult = await dispatch(
-      requestEditRecipe({ recipeId, formData })
+      requestEditRecipe({ recipeId, recipeData })
     );
     console.log("formData-comp:", formData);
+    console.log("recipeData-comp:", recipeData);
     // const recipeId = newRecipe.payload.id;
     if (editRecipeResult.type.endsWith("fulfilled")) {
       alert("recipe successfully updated");
@@ -63,7 +94,7 @@ const EditRecipeForm = () => {
             name="title"
             placeholder={formData.title}
             value={formData.title}
-            onChange={handleChange}
+            onChange={handleFormChange}
             maxLength="40"
             required
             className={styles.formTitle}
@@ -77,7 +108,7 @@ const EditRecipeForm = () => {
             cols="50"
             rows="4"
             value={formData.description}
-            onChange={handleChange}
+            onChange={handleFormChange}
             required
           />
         </div>
@@ -88,7 +119,7 @@ const EditRecipeForm = () => {
               name="yield"
               placeholder={formData.yield}
               value={formData.yield}
-              onChange={handleChange}
+              onChange={handleFormChange}
               maxLength="20"
               required
             />
@@ -99,7 +130,7 @@ const EditRecipeForm = () => {
               name="active_time"
               placeholder={formData.active_time}
               value={formData.active_time}
-              onChange={handleChange}
+              onChange={handleFormChange}
               maxLength="20"
               required
             />
@@ -110,7 +141,7 @@ const EditRecipeForm = () => {
               name="total_time"
               placeholder={formData.total_time}
               value={formData.total_time}
-              onChange={handleChange}
+              onChange={handleFormChange}
               maxLength="20"
               required
             />
@@ -124,7 +155,7 @@ const EditRecipeForm = () => {
             rows="15"
             cols="70"
             value={formData.ingredients}
-            onChange={handleChange}
+            onChange={handleFormChange}
             required
           />
         </div>
@@ -136,7 +167,7 @@ const EditRecipeForm = () => {
             rows="15"
             cols="70"
             value={formData.instructions}
-            onChange={handleChange}
+            onChange={handleFormChange}
             required
           />
         </div>
@@ -145,6 +176,18 @@ const EditRecipeForm = () => {
           <button type="submit">Edit Recipe</button>
         </div>
       </form>
+      <div className={styles.tagContainer}>
+        {tags.map((tag) => (
+          <label key={tag.id} className={styles.tagItem}>
+            <input
+              type="checkbox"
+              checked={selectedTagIds.includes(tag.id)}
+              onChange={() => handleTaggingsChange(tag.id)}
+            />
+            {tag.name}
+          </label>
+        ))}
+      </div>
     </div>
   );
 };

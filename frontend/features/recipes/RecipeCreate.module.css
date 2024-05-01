@@ -4,9 +4,13 @@
   background-repeat: no-repeat;
   min-height: 95vh;
   background-attachment: fixed;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
 }
 
 .createForm {
+  flex: 3;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -24,6 +28,22 @@
   margin-top: 2%;
   margin-bottom: 2%;
   margin-left: .25%; 
+}
+
+.tagContainer {
+  flex: 1;
+  display: flex;
+  /* justify-content: flex-end; */
+  flex-wrap: wrap;
+  max-width: 50%;
+  max-height: 40vh;
+  margin-top: 13%;
+  /* margin-left: auto; */
+}
+
+.tagItem {
+  flex-basis: 50%;
+  /* Adjust to control how many tags per row */
 }
 
 .createForm textarea {

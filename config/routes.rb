@@ -12,6 +12,7 @@
 Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     resources :users, only: [:create, :show]
+    resources :tags, only: [:index]
     post '/login', to: 'sessions#create'
     delete '/logout', to: 'sessions#destroy'
     get '/current', to: 'users#current'

@@ -1,44 +1,47 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+puts "Resetting database..."
 
-Recipe.delete_all
-User.delete_all
+[User, Recipe, Tag, Tagging].each(&:delete_all)
 
-20.times do |i|
-  User.create!(
-    first_name: "FirstName#{i}",
-    last_name: "LastName#{i}",
-    username: "User#{i}",
-    email: "user#{i}@example.com",
-    password: "password", 
-    password_confirmation: "password"
+# ///// Seed Tags //////
+puts 'Seeding Tags...'
+Tag.categories.each do |category|
+  Tag.find_or_create_by(name: category)
+end
+puts 'Tags seeded.'
+
+Seed Users
+puts 'Seeding Users...'
+user_data = JSON.parse(File.read(Rails.root.join('db', 'userSeedData.json')))
+user_data.each do |user_attrs|
+  User.create!(user_attrs)
+end
+puts 'Users seeded.'
+
+# //////// Seed Recipes and Taggings //////
+puts 'Seeding Recipes...'
+recipe_data = JSON.parse(File.read(Rails.root.join('db', 'recipeSeedData.json')))
+users = User.all
+user_index = 0
+
+recipe_data.each do |recipe_attrs|
+  recipe = users[user_index].recipes.create!(
+    title: recipe_attrs['title'],
+    description: recipe_attrs['description'],
+    yield: recipe_attrs['yield'],
+    active_time: recipe_attrs['active_time'],
+    total_time: recipe_attrs['total_time'],
+    ingredients: recipe_attrs['ingredients'],
+    instructions: recipe_attrs['instructions'],
+    image: recipe_attrs['image']
   )
-end
 
-puts "20 users have been created."
-
-User.find_each do |user|
-  2.times do |i|
-    Recipe.create!(
-      title: "Recipe #{i + 1} by #{user.username}",
-      author_id: user.id,
-      description: "This is a sample description for recipe #{i + 1} by #{user.username}.",
-      yield: "Serves #{rand(2..6)}",
-      active_time: "#{rand(10..30)} minutes",
-      total_time: "#{rand(30..120)} minutes",
-      ingredients: "Ingredient 1, Ingredient 2, Ingredient 3",
-      instructions: "Step 1, Step 2, Step 3",
-      # image: "https://recipe-thyme-content.s3.us-west-1.amazonaws.com/app-images/defaultPlate+Small.png"
-    )
+  recipe_attrs['tag_names'].each do |tag_name|
+    tag = Tag.find_by(name: tag_name)
+    Tagging.create!(recipe: recipe, tag: tag) if tag
   end
+
+  user_index = (user_index + 1) % users.count
 end
+puts 'Recipes and taggings seeded.'
 
-puts "40 recipes have been created."
-
+puts 'Database has been seeded!'
