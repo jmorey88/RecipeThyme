@@ -1,0 +1,162 @@
+[
+  {
+    "username": "boris_friesen",
+    "email": "tania.leffler@senger.test",
+    "first_name": "Ron",
+    "last_name": "Ward",
+    "password": "password",
+    "password_confirmation": "password"
+  },
+  {
+    "username": "yessenia_botsford",
+    "email": "rocco@runolfsson.test",
+    "first_name": "Forest",
+    "last_name": "Schiller",
+    "password": "password",
+    "password_confirmation": "password"
+  },
+  {
+    "username": "sharilyn.mitchell",
+    "email": "gwyn.hane@nader.test",
+    "first_name": "Anthony",
+    "last_name": "Nitzsche",
+    "password": "password",
+    "password_confirmation": "password"
+  },
+  {
+    "username": "iesha.stehr",
+    "email": "lemuel.schmeler@swift.example",
+    "first_name": "Kristel",
+    "last_name": "Dare",
+    "password": "password",
+    "password_confirmation": "password"
+  },
+  {
+    "username": "anibal",
+    "email": "shela.ritchie@aufderhar-brown.test",
+    "first_name": "Ana",
+    "last_name": "Greenfelder",
+    "password": "password",
+    "password_confirmation": "password"
+  },
+  {
+    "username": "gail",
+    "email": "quinton@lockman-rau.example",
+    "first_name": "Owen",
+    "last_name": "Yost",
+    "password": "password",
+    "password_confirmation": "password"
+  },
+  {
+    "username": "jerrod_mayer",
+    "email": "stanford@dooley.test",
+    "first_name": "Inocencia",
+    "last_name": "O'Reilly",
+    "password": "password",
+    "password_confirmation": "password"
+  },
+  {
+    "username": "jess_streich",
+    "email": "gabriel_fadel@mccullough.test",
+    "first_name": "Len",
+    "last_name": "Mann",
+    "password": "password",
+    "password_confirmation": "password"
+  },
+  {
+    "username": "aleshia",
+    "email": "ruby@mills.example",
+    "first_name": "Porfirio",
+    "last_name": "Vandervort",
+    "password": "password",
+    "password_confirmation": "password"
+  },
+  {
+    "username": "wendy_mccullough",
+    "email": "judi.oconnell@stamm-weimann.example",
+    "first_name": "Augustine",
+    "last_name": "Parisian",
+    "password": "password",
+    "password_confirmation": "password"
+  },
+  {
+    "username": "kathrin.keeling",
+    "email": "shawn@koss-lang.test",
+    "first_name": "Terrance",
+    "last_name": "Hills",
+    "password": "password",
+    "password_confirmation": "password"
+  },
+  {
+    "username": "abraham",
+    "email": "marcus@langworth.example",
+    "first_name": "Carri",
+    "last_name": "Balistreri",
+    "password": "password",
+    "password_confirmation": "password"
+  },
+  {
+    "username": "evia",
+    "email": "lana_goodwin@runte-fritsch.example",
+    "first_name": "Leopoldo",
+    "last_name": "Bauch",
+    "password": "password",
+    "password_confirmation": "password"
+  },
+  {
+    "username": "sherita",
+    "email": "melvin_windler@hauck.example",
+    "first_name": "Rafael",
+    "last_name": "Johnson",
+    "password": "password",
+    "password_confirmation": "password"
+  },
+  {
+    "username": "angeline.lind",
+    "email": "kris.bogan@morar-west.test",
+    "first_name": "Gayla",
+    "last_name": "Reilly",
+    "password": "password",
+    "password_confirmation": "password"
+  },
+  {
+    "username": "armida_vandervort",
+    "email": "wendolyn@kozey.example",
+    "first_name": "Rodrigo",
+    "last_name": "Osinski",
+    "password": "password",
+    "password_confirmation": "password"
+  },
+  {
+    "username": "wes",
+    "email": "crista@hegmann.test",
+    "first_name": "Stefany",
+    "last_name": "Quitzon",
+    "password": "password",
+    "password_confirmation": "password"
+  },
+  {
+    "username": "willis",
+    "email": "amado@erdman-heidenreich.test",
+    "first_name": "Lenna",
+    "last_name": "Trantow",
+    "password": "password",
+    "password_confirmation": "password"
+  },
+  {
+    "username": "lane.roberts",
+    "email": "thora@hilpert-bruen.example",
+    "first_name": "Jesse",
+    "last_name": "Parker",
+    "password": "password",
+    "password_confirmation": "password"
+  },
+  {
+    "username": "hai",
+    "email": "terrie@schimmel.test",
+    "first_name": "Terri",
+    "last_name": "Graham",
+    "password": "password",
+    "password_confirmation": "password"
+  }
+]

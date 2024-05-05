@@ -1,15 +1,15 @@
 puts "Resetting database..."
 
-[User, Recipe, Tag, Tagging].each(&:delete_all)
+[Recipe, User, Tag, Tagging].each(&:delete_all)
 
 # ///// Seed Tags //////
 puts 'Seeding Tags...'
-Tag.categories.each do |category|
+Tag::CATEGORIES.each do |category|
   Tag.find_or_create_by(name: category)
 end
 puts 'Tags seeded.'
 
-Seed Users
+# ///// Seed Users /////////
 puts 'Seeding Users...'
 user_data = JSON.parse(File.read(Rails.root.join('db', 'userSeedData.json')))
 user_data.each do |user_attrs|

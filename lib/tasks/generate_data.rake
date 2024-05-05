@@ -39,14 +39,14 @@ namespace :data do
       
       file_path = Rails.root.join('db', 'recipeSeedData.json')
 
-      if File.exist?(file_path)
+      if File.exist?(file_path) && !File.zero?(file_path)
         existing_data = JSON.parse(File.read(file_path))
       else
         existing_data = []
       end
 
       categories = ['Breakfast', 'Lunch', 'Entrees', 'Desserts', 'Beverages', 'Appetizers', 'Breads', 'Salads', 'Soups', 'Miscellaneous']
-      prompt = "Generate 200 unique and creative recipe titles suitable for a diverse cooking blog, covering the following categories: #{categories.join(', ')}. Each title should clearly reflect its category, be distinct, concise, and not exceed 35 characters. Avoid prefixes, numbers, or special formatting in the titles."
+      prompt = "Generate 200 unique and creative recipe titles suitable for a diverse cooking blog, covering the following categories: #{categories.join(', ')}. Each title be distinct, concise, and not exceed 35 characters. Avoid prefixes, numbers, dashes, colons, repeated words or special formatting in the titles.  Example: Sunrise Berry Yogurt Parfait"
       new_recipes = []
 
       recipe_titles = send_prompt_to_gpt(prompt)
@@ -130,7 +130,7 @@ namespace :data do
           if detailed_recipe['instructions'].is_a?(Array)
             detailed_recipe['instructions'] = detailed_recipe['instructions'].join("\n")
           end
-        rescue JSON::ParserError => each
+        rescue JSON::ParserError => e
           puts "Failed to parse JSON response: #{e.message}"
           next
         end
