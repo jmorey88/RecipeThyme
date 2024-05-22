@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { requestEditRecipe, recieveRecipeDetails } from "./recipeSlice";
 import { resetSearch } from "../search/searchSlice";
 import { fetchRecipeTags } from "./RecipeService";
-import styles from "./RecipeCreate.module.css";
+import styles from "./RecipeEdit.module.css";
 // import { unstable_useViewTransitionState } from "react-router-dom";
 // import { editRecipe } from "./RecipeService";
 
@@ -85,10 +85,11 @@ const EditRecipeForm = () => {
   };
 
   return (
-    <div className={styles.createFormBackground}>
-      <form onSubmit={handleSubmit} className={styles.createForm}>
-        <h1 className={styles.title}>Edit Recipe</h1>
+    <div className={styles.editFormBackground}>
+      <form onSubmit={handleSubmit} className={styles.editForm}>
+        <h1 className={styles.title}>Edit Your Recipe</h1>
         <div>
+          <h3>Recipe Title</h3>
           <input
             type="text"
             name="title"
@@ -97,10 +98,11 @@ const EditRecipeForm = () => {
             onChange={handleFormChange}
             maxLength="40"
             required
-            className={styles.formTitle}
+            className={styles.formInput}
           />
         </div>
         <div className={styles.formDescription}>
+          <h3>Description</h3>
           <textarea
             type="text"
             name="description"
@@ -114,6 +116,7 @@ const EditRecipeForm = () => {
         </div>
         <div className={styles.yieldTimeInput}>
           <div className={styles.formYield}>
+            <h3>Serving Size</h3>
             <input
               type="text"
               name="yield"
@@ -122,9 +125,11 @@ const EditRecipeForm = () => {
               onChange={handleFormChange}
               maxLength="20"
               required
+              className={styles.formInput}
             />
           </div>
           <div className={styles.formActiveTime}>
+            <h3>Active Time</h3>
             <input
               type="text"
               name="active_time"
@@ -133,9 +138,11 @@ const EditRecipeForm = () => {
               onChange={handleFormChange}
               maxLength="20"
               required
+              className={styles.formInput}
             />
           </div>
           <div className={styles.formTotalTime}>
+            <h3>Total Time</h3>
             <input
               type="text"
               name="total_time"
@@ -144,10 +151,12 @@ const EditRecipeForm = () => {
               onChange={handleFormChange}
               maxLength="20"
               required
+              className={styles.formInput}
             />
           </div>
         </div>
         <div className={styles.formIngredients}>
+          <h3>Ingredients</h3>
           <textarea
             type="text"
             name="ingredients"
@@ -160,6 +169,7 @@ const EditRecipeForm = () => {
           />
         </div>
         <div className={styles.formInstructions}>
+          <h3>Instructions</h3>
           <textarea
             type="text"
             name="instructions"
@@ -172,22 +182,25 @@ const EditRecipeForm = () => {
           />
         </div>
         {/* <input type="file" name="image" onChange={handleImageChange} /> */}
-        <div className={styles.buttonContainer}>
+        <div className={styles.tagContainer}>
+          <h3 className={styles.tagTitle}>Tags</h3>
+          <div className={styles.tagBorder}>
+            {tags.map((tag) => (
+              <label key={tag.id} className={styles.tagItem}>
+                <input
+                  type="checkbox"
+                  checked={selectedTagIds.includes(tag.id)}
+                  onChange={() => handleTaggingsChange(tag.id)}
+                />
+                {tag.name}
+              </label>
+            ))}
+          </div>
+        </div>
+        <div className={styles.editButtonContainer}>
           <button type="submit">Edit Recipe</button>
         </div>
       </form>
-      <div className={styles.tagContainer}>
-        {tags.map((tag) => (
-          <label key={tag.id} className={styles.tagItem}>
-            <input
-              type="checkbox"
-              checked={selectedTagIds.includes(tag.id)}
-              onChange={() => handleTaggingsChange(tag.id)}
-            />
-            {tag.name}
-          </label>
-        ))}
-      </div>
     </div>
   );
 };

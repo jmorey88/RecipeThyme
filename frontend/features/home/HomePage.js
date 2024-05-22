@@ -7,7 +7,7 @@ function HomePage() {
     <div className={styles.homePageBackground}>
       <div className={styles.home}>
         <h1 className={styles.heading}>
-          Get Inspired Get Organized Get Cooking!
+          Get Inspired <br /> Get Organized <br /> Get Cooking!
         </h1>
         <p className={styles.newMemberTxt}>New Members Sign Up Here</p>
         <Link to="/signup" className={styles.signupButton}>

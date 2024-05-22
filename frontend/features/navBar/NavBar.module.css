@@ -17,10 +17,10 @@
 
 .titleLink {
   text-decoration: none;
-  font-size: 25px;
-  font-weight: 700;
-  color: black;
-  font-style: italic;
+  font-size: 4vh;
+  /* font-weight: 700; */
+  color: #015669;
+  /* font-style: italic; */
 }
 
 .sessionLink {

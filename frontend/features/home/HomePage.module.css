@@ -2,10 +2,10 @@
   padding: 1rem;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  max-width: 400px;
-  margin-top: 7%;
+  align-items: center;
+  /* justify-content: center; */
+  width: 37%;
+  margin-top: 6%;
   margin-right: 3%;
 }
 
@@ -24,22 +24,25 @@
   font-family: "Poppins",
     "Poppins SC",
     sans-serif;
-  color: black;
+  color: #015669;
   width: 84%;
   text-align: center;
-  font-size: 300%;
+  font-size: 7.5vh;
   line-height: 161%;
 }
 
 .newMemberTxt {
-  font-family: "Poppins",
+  /* font-family: "Poppins",
     "Poppins SC",
+    sans-serif; */
+  font-family: "Montserrat",
+    monospace,
     sans-serif;
-  color: black;
-  width: 84%;
+  color: #015669;
+  width: 78%;
   text-align: center;
-  font-size: 161%;
-  margin-top: 14%;
+  font-size: 4vh;
+  margin-top: 11%;
 }
 
 .signupButton {
@@ -51,16 +54,16 @@
   text-decoration: none;
   border-radius: 30px;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 2.9vh;
   letter-spacing: .5px;
   font-weight: bolder;
   font-family: "Poppins",
     "Poppins SC",
     sans-serif;
-  margin-top: 13%;
-  margin-left: 20%;
-  height: 25px;
-  padding-top: 4%;
+  margin-top: 11%;
+  /* margin-left: 20%; */
+  /* height: 25px; */
+  /* padding-top: 4%; */
 }
 
 .signupButton:hover {

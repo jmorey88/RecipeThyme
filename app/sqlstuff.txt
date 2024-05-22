@@ -1,0 +1,21 @@
+SELECT r.id,
+       r.title,
+       r.description,
+       array_agg(tg.name, ", ") AS tags
+FROM recipes r
+LEFT JOIN taggings t ON r.id = t.recipe_id
+LEFT JOIN tags tg ON t.tag_id = tg.id
+WHERE tg.name = 'Entrees' 
+AND (
+  r.title ILIKE '%mushroom%' OR
+  r.description ILIKE '%mushroom%'
+)
+AND r.user_id = `current_user.id`
+GROUP BY r.id
+ORDER BY r.updated_at DESC;
+
+
+   id   title                 description           tags
+1  432  Mushroom rice         ...                   Entree, Breakfast, Misc
+2  523  Mushroom spaghetti    ...                   Entree, Misc
+3  456  BBQ mushrooms         Description of BBQ    Entree, Dinner, Misc

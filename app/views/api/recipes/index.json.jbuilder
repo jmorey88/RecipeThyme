@@ -4,6 +4,8 @@ json.recipes @recipes do |recipe|
   json.description recipe.description
   json.author_id recipe.author_id
   json.image recipe.image
+  json.yield recipe.yield
+  json.author recipe.author.username
 end
 
 json.meta do

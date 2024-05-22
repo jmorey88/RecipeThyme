@@ -13,6 +13,7 @@
 
 .sessionsFormContainer {
   width: 45%;
+  background: #fffcf7;
 }
 
 .sessionForm {
@@ -24,6 +25,11 @@
   font-family: "Poppins",
     "Poppins SC",
     sans-serif;
+  color: #015669;
+}
+
+.sessionForm h1 {
+  font-size: 5vh;
 }
 
 .sessionForm div {
@@ -32,33 +38,36 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 8vh;
 }
 
 .sessionForm input {
   width: 61%;
   padding: 10px;
   margin: 5px 0;
-  font-size: 17px;
+  font-size: 2.6vh;
   border-radius: 25px;
-  border: 2px solid black;
+  border: 2px solid #015669;
+  background: #fffcf7;
+  height: 3vh;
 }
 
 .sessionButton {
   margin-top: 9%;
   background-color: rgb(43 148 179);
-  color: white;
+  color: #fffcf7;
   text-align: center;
   text-decoration: none;
   border-radius: 30px;
-  border: solid 2px black;
+  border: none;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 2.6vh;
   letter-spacing: .5px;
   font-weight: bolder;
   font-family: "Poppins",
     "Poppins SC",
     sans-serif;
-  height: 43px;
+  height: 6.5vh;
   width: 50%;
 }
 

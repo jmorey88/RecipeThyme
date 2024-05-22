@@ -42,7 +42,13 @@ const RecipeGallery = () => {
               alt={recipe.title}
               className={styles.recipeImg}
             />
+            <p className={styles.author}>
+              <b>Created by</b> {recipe.author}
+            </p>
             <h3 className={styles.recipeTitle}>{recipe.title}</h3>
+            <p className={styles.yield}>
+              <b>Servings:</b> {recipe.yield}
+            </p>
             {/* <p>{recipe.description}</p> */}
           </Link>
         </li>
@@ -61,9 +67,10 @@ const RecipeGallery = () => {
             alt="plus"
             className={styles.plus}
           /> */}
-          <p>
+          {/* <p>
             + <u>New Recipe</u>
-          </p>
+          </p> */}
+          + New Recipe
         </Link>
       </div>
 

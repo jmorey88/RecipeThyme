@@ -21,7 +21,8 @@ const NavBar = () => {
   const isLoggedIn = useSelector((state) => state.session.currentUser);
 
   const logoUrl =
-    "https://recipe-thyme-content.s3.us-west-1.amazonaws.com/app-images/recipeThymeLogo.png";
+    // "https://recipe-thyme-content.s3.us-west-1.amazonaws.com/app-images/recipeThymeLogo.png";
+    "https://recipe-thyme-content.s3.us-west-1.amazonaws.com/app-images/recipeThymeLogoBlue.png";
 
   return (
     <nav className={styles.navbar}>
@@ -29,7 +30,7 @@ const NavBar = () => {
         <img src={logoUrl} alt="Recipethyme Logo" className={styles.logo} />
       </Link>
       <Link to="/" className={styles.titleLink}>
-        RecipeThyme
+        Recipe<b>Thyme</b>
       </Link>
       {isLoggedIn ? (
         <button onClick={handleLogout} className={styles.navbarButton}>

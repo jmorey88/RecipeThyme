@@ -5,7 +5,6 @@ import { createRecipe } from "./recipeSlice";
 import { resetSearch } from "../search/searchSlice";
 import { fetchRecipeTags } from "./RecipeService";
 import styles from "./RecipeCreate.module.css";
-import { unstable_useViewTransitionState } from "react-router-dom";
 
 const RecipeForm = () => {
   const dispatch = useDispatch();
@@ -21,7 +20,6 @@ const RecipeForm = () => {
     total_time: "",
     ingredients: "",
     instructions: "",
-    // image: null,
   });
 
   useEffect(() => {
@@ -70,25 +68,28 @@ const RecipeForm = () => {
 
   return (
     <div className={styles.createFormBackground}>
+      {/* <div className={styles.formWrapper}> */}
       <form onSubmit={handleSubmit} className={styles.createForm}>
-        <h1 className={styles.title}>Create Recipe</h1>
+        <h1 className={styles.title}>Create Your Recipe</h1>
         <div>
+          <h3>Recipe Title</h3>
           <input
             type="text"
             name="title"
-            placeholder="Title"
+            placeholder="Type your recipe name here"
             value={formData.title}
             onChange={handleFormChange}
             maxLength="40"
             required
-            className={styles.formTitle}
+            className={styles.formInput}
           />
         </div>
         <div className={styles.formDescription}>
+          <h3>Description</h3>
           <textarea
             type="text"
             name="description"
-            placeholder="Description"
+            placeholder="Add a breif description of your recipe"
             cols="50"
             rows="4"
             value={formData.description}
@@ -98,44 +99,51 @@ const RecipeForm = () => {
         </div>
         <div className={styles.yieldTimeInput}>
           <div className={styles.formYield}>
+            <h3>Serving Size</h3>
             <input
               type="text"
               name="yield"
-              placeholder="Yield"
+              placeholder="e.g. Serves 4"
               value={formData.yield}
               onChange={handleFormChange}
               maxLength="20"
               required
+              className={styles.formInput}
             />
           </div>
           <div className={styles.formActiveTime}>
+            <h3>Active Time</h3>
             <input
               type="text"
               name="active_time"
-              placeholder="Active_Time"
+              placeholder="e.g. 20 mins"
               value={formData.active_time}
               onChange={handleFormChange}
               maxLength="20"
               required
+              className={styles.formInput}
             />
           </div>
           <div className={styles.formTotalTime}>
+            <h3>Total Time</h3>
             <input
               type="text"
               name="total_time"
-              placeholder="Total_time"
+              placeholder="e.g. 1 hour"
               value={formData.total_time}
               onChange={handleFormChange}
               maxLength="20"
               required
+              className={styles.formInput}
             />
           </div>
         </div>
         <div className={styles.formIngredients}>
+          <h3>Ingredients</h3>
           <textarea
             type="text"
             name="ingredients"
-            placeholder="Ingredients"
+            placeholder="Add list of Ingredients"
             rows="15"
             cols="70"
             value={formData.ingredients}
@@ -144,10 +152,11 @@ const RecipeForm = () => {
           />
         </div>
         <div className={styles.formInstructions}>
+          <h3>Instructions</h3>
           <textarea
             type="text"
             name="instructions"
-            placeholder="Instructions"
+            placeholder={`Add one or multiple steps(e.g. "preheat oven to 350° F")`}
             rows="15"
             cols="70"
             value={formData.instructions}
@@ -156,22 +165,26 @@ const RecipeForm = () => {
           />
         </div>
         {/* <input type="file" name="image" onChange={handleImageChange} /> */}
-        <div className={styles.buttonContainer}>
+        <div className={styles.tagContainer}>
+          <h3 className={styles.tagTitle}>Tags</h3>
+          <div className={styles.tagBorder}>
+            {tags.map((tag) => (
+              <label key={tag.id} className={styles.tagItem}>
+                <input
+                  type="checkbox"
+                  checked={selectedTagIds.includes(tag.id)}
+                  onChange={() => handleTaggingsChange(tag.id)}
+                />
+                {tag.name}
+              </label>
+            ))}
+          </div>
+        </div>
+        <div className={styles.createButtonContainer}>
           <button type="submit">Create Recipe</button>
         </div>
       </form>
-      <div className={styles.tagContainer}>
-        {tags.map((tag) => (
-          <label key={tag.id} className={styles.tagItem}>
-            <input
-              type="checkbox"
-              checked={selectedTagIds.includes(tag.id)}
-              onChange={() => handleTaggingsChange(tag.id)}
-            />
-            {tag.name}
-          </label>
-        ))}
-      </div>
+      {/* </div> */}
     </div>
   );
 };

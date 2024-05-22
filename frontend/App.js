@@ -8,6 +8,7 @@ import RecipeDetail from "./features/recipes/RecipeDetail.js";
 import RecipeForm from "./features/recipes/RecipeCreate.js";
 import { AuthRoute, ProtectedRoute } from "./utils/routes_util.jsx";
 import EditRecipeForm from "./features/recipes/RecipeEdit.js";
+import LayoutWithFooter from "./features/footer/LayoutWithFooter.js";
 
 function App() {
   return (
@@ -35,7 +36,9 @@ function App() {
           path="/recipe-gallery"
           element={
             <ProtectedRoute>
-              <RecipeGallery />
+              <LayoutWithFooter>
+                <RecipeGallery />
+              </LayoutWithFooter>
             </ProtectedRoute>
           }
         />
@@ -43,12 +46,28 @@ function App() {
           path="/recipe/:recipeId"
           element={
             <ProtectedRoute>
-              <RecipeDetail />
+              <LayoutWithFooter>
+                <RecipeDetail />
+              </LayoutWithFooter>
             </ProtectedRoute>
           }
         />
-        <Route path="/recipe-create" element={<RecipeForm />} />
-        <Route path="/recipe/:recipeId/edit" element={<EditRecipeForm />} />
+        <Route
+          path="/recipe-create"
+          element={
+            <LayoutWithFooter>
+              <RecipeForm />
+            </LayoutWithFooter>
+          }
+        />
+        <Route
+          path="/recipe/:recipeId/edit"
+          element={
+            <LayoutWithFooter>
+              <EditRecipeForm />
+            </LayoutWithFooter>
+          }
+        />
       </Routes>
     </Router>
   );

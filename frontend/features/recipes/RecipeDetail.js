@@ -104,62 +104,81 @@ const RecipeDetail = () => {
                 type="file"
                 onChange={handleImageChange}
                 id="fileInput"
-                className={styles.fileInput}
+                // className={styles.fileInput}
                 style={{
-                  backgroundImage:
-                    "url('https://recipe-thyme-content.s3.us-west-1.amazonaws.com/app-images/camera-2112207_1280.png')",
+                  display: "none",
+                  // backgroundImage:
+                  //   "url('https://recipe-thyme-content.s3.us-west-1.amazonaws.com/app-images/camera-2112207_1280.png')",
                 }}
               />
+              <label htmlFor="fileInput" className={styles.uploadButton}>
+                <img
+                  src="https://recipe-thyme-content.s3.us-west-1.amazonaws.com/app-images/camera-2112207_1280.png"
+                  alt="Upload Image"
+                  className={styles.uploadIcon}
+                />
+                Upload New Image
+              </label>
             </>
           )}
         </div>
         <div className={styles.recipeSpecs}>
+          <div className={styles.recipeHead}>RECIPE</div>
+          {isAuthor ? (
+            <div className={styles.authorTag}>CREATED BY ME</div>
+          ) : (
+            <div className={styles.authorTag}>CREATED BY {recipe.author}</div>
+          )}
           <h1 className={styles.title}>{recipe.title}</h1>
-          <p className={styles.description}>{recipe.description}</p>
-          <div className={styles.specs}>
-            <text className={styles.yield}>Yield:</text>
-            <p>{recipe.yield}</p>
-            <label>Active Time:</label>
-            <p>{recipe.active_time}</p>
-            <label>Total Time:</label>
-            <p>{recipe.total_time}</p>
-          </div>
           {isAuthor ? (
             <div className={styles.editDelete}>
               <Link to={`/recipe/${recipeId}/edit`} className={styles.editLink}>
                 <img
-                  src="https://recipe-thyme-content.s3.us-west-1.amazonaws.com/app-images/pencil-icon-png-28-Photoroom.png-Photoroom.png"
+                  src="https://recipe-thyme-content.s3.us-west-1.amazonaws.com/app-images/final_pencil.png"
                   alt="pencil-icon"
                   className={styles.pencil}
                 ></img>
-                Edit
+                EDIT RECIPE
               </Link>
               <button onClick={handleDelete} className={styles.delete}>
                 <img
-                  src="https://recipe-thyme-content.s3.us-west-1.amazonaws.com/app-images/trash-can-icon-28689.png"
+                  src="https://recipe-thyme-content.s3.us-west-1.amazonaws.com/app-images/final_trash_can.png"
                   alt="trash-icon"
                   className={styles.trash}
                 ></img>
-                Delete
+                DELETE RECIPE
               </button>
             </div>
           ) : null}
         </div>
       </div>
-      <div className={styles.recipeCard}>
-        <div className={styles.recipe}>
-          <div className={styles.ingredients}>
-            <label>Ingredients:</label>
-            <div>
-              <p>{recipe.ingredients}</p>
-            </div>
-          </div>
-          <div className={styles.instructions}>
-            <label>Instructions:</label>
-            <div>
-              <p>{recipe.instructions}</p>
-            </div>
-          </div>
+      <div className={styles.description}>
+        <p>{recipe.description}</p>
+      </div>
+      <div className={styles.specs}>
+        <div>
+          <label>Servings:</label>
+          <p>{recipe.yield}</p>
+        </div>
+        <div>
+          <label>Active Time:</label>
+          <p>{recipe.active_time}</p>
+        </div>
+        <div>
+          <label>Total Time:</label>
+          <p>{recipe.total_time}</p>
+        </div>
+      </div>
+      <div className={styles.ingredients}>
+        <label>Ingredients</label>
+        <div>
+          <p>{recipe.ingredients}</p>
+        </div>
+      </div>
+      <div className={styles.instructions}>
+        <label>Instructions</label>
+        <div>
+          <p>{recipe.instructions}</p>
         </div>
       </div>
     </div>

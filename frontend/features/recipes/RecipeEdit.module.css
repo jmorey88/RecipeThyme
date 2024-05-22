@@ -1,0 +1,194 @@
+.editFormBackground {
+  /* background-image: url(https://recipe-thyme-content.s3.us-west-1.amazonaws.com/app-images/recipeDetailBkgd.png); */
+  /* background-size: cover; */
+  /* background-repeat: no-repeat; */
+  min-height: 95vh;
+  /* background-attachment: fixed; */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background: rgb(248, 222, 198);
+  width: 100%;
+  /* padding: 20px; */
+}
+
+.editForm {
+  /* flex: 3; */
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  font-family: "Poppins",
+    "Poppins SC",
+    sans-serif;
+  color: #015669;
+  padding-left: 2%;
+  margin-top: 2%;
+  background: #fffcf7;
+  border-radius: 3vh;
+}
+
+.editForm div {
+  padding-bottom: 3%;
+}
+
+.editForm h3 {
+  font-size: 2.3vh;
+}
+
+.title {
+  margin-top: 4%;
+  margin-bottom: 2%;
+  margin-left: .25%;
+  font-size: 3.6vh;
+}
+
+.tagContainer {
+  /* flex: 1; */
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  /* justify-content: center; */
+  /* justify-content: flex-end; */
+  /* flex-wrap: wrap; */
+  /* max-width: 50%; */
+  /* max-height: 40vh; */
+  /* margin-top: 18%; */
+  /* margin-right: 6%; */
+  /* margin-left: auto; */
+  width: 78%;
+  height: 52vh;
+  padding-right: 3%;
+  /* padding-left: 3%; */
+  margin-bottom: 5%;
+}
+
+.tagTitle {
+  font-family: "Poppins",
+    "Poppins SC",
+    sans-serif;
+  /* font-size: 1.6em; */
+}
+
+.tagBorder {
+  width: 100%;
+  height: 83%;
+  background-color: #ebebeb;
+  border: 1px solid black;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  padding-top: 3%;
+
+}
+
+.tagItem {
+  display: flex;
+  /* flex-direction: row; */
+  align-items: center;
+  font-family: "Poppins",
+    "Poppins SC",
+    sans-serif;
+  font-size: 2.1vh;
+  font-weight: 600;
+  /* margin-right: 0%; */
+  width: 36%;
+  padding: 2%;
+  /* flex-basis: 50%; */
+}
+
+.tagItem input {
+  /* margin-right: 8%; */
+  /* margin-left: 19%; */
+  width: 12%;
+}
+
+tagItem input[type="checkbox"] {
+  width: 20px;
+  /* Not always respected */
+  height: 20px;
+  /* Not always respected */
+  transform: scale(1.5);
+  /* More reliable for resizing */
+  margin: 5px;
+}
+
+.editForm textarea {
+  resize: none;
+  font-size: 2.2vh;
+  width: 80%;
+  border: 1px solid black;
+  /* border: none; */
+  border-radius: 26px;
+  padding: 3%;
+  padding-left: 4%;
+  background: #ebeff0;
+  font-family: "Poppins", "Poppins SC", sans-serif;
+  color: #6b6969;
+}
+
+/* .editForm input {
+  width: 83%;
+  font-size: 2.15vh;
+  border: 2px solid black;
+  border: none;
+  border-radius: 26px;
+  padding: 1.8vh;
+  background: #ebeff0;
+  font-family: "Poppins", "Poppins SC", sans-serif;
+  color: #6b6969;
+} */
+
+.formInput {
+  width: 83%;
+  font-size: 2.15vh;
+  /* border: 2px solid black; */
+  border: none;
+  border-radius: 26px;
+  padding: 1.8vh;
+  padding-left: 3vh;
+  background: #ebeff0;
+  font-family: "Poppins", "Poppins SC", sans-serif;
+  color: #6b6969;
+}
+
+.formTitle {
+  /* padding-left: 2%;
+  padding-bottom: 3%;
+  height: 2%;
+  width: 20%; */
+}
+
+.yieldTimeInput {
+  display: flex;
+  flex-direction: row;
+}
+
+.yieldTimeInput div {
+  padding-right: 2%;
+  padding-bottom: 0%;
+}
+
+.buttonContainer {
+  height: 10%;
+}
+
+.editForm button {
+  background-color: rgb(43 148 179);
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  letter-spacing: .5px;
+  font-weight: bolder;
+  font-family: "Poppins",
+    "Poppins SC",
+    sans-serif;
+  height: 43px;
+  width: 34%;
+  margin-bottom: 2%;
+}
