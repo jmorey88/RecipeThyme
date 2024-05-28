@@ -28,19 +28,25 @@ const Footer = () => {
             Recipe<b>Thyme</b>
           </p>
         </div>
+      </div>
+      <div className={styles.middleDiv}>
+        <div className={styles.socialContainer}>
+          <img
+            src={facebookUrl}
+            alt="facebook logo"
+            className={styles.facebookLogo}
+          />
+          <img
+            src={instUrl}
+            alt="instagram logo"
+            className={styles.instaLogo}
+          />
+          <img src={pintUrl} alt="pinterest logo" className={styles.pintLogo} />
+          <img src={gitUrl} alt="github logo" className={styles.gitLogo} />
+        </div>
         <p className={styles.copyright}>
           &#169; RecipeThyme All rights reserved.
         </p>
-      </div>
-      <div className={styles.middleDiv}>
-        <img
-          src={facebookUrl}
-          alt="facebook logo"
-          className={styles.facebookLogo}
-        />
-        <img src={instUrl} alt="instagram logo" className={styles.instaLogo} />
-        <img src={pintUrl} alt="pinterest logo" className={styles.pintLogo} />
-        <img src={gitUrl} alt="github logo" className={styles.gitLogo} />
       </div>
       <div className={styles.rightHalf}>
         <div className={styles.emailContainer}>

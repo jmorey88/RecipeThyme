@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useDispatch, useSelector } from "react-redux";
-import { searchRecipes } from "../search/searchSlice";
+import { searchRecipes, resetSearch } from "../search/searchSlice";
 import styles from "./RecipeGallery.module.css";
+import SearchForm from "../search/SearchForm";
 
 const RecipeGallery = () => {
   const dispatch = useDispatch();
@@ -18,14 +19,26 @@ const RecipeGallery = () => {
   );
   const hasMore = currentPage < totalPages;
 
+  const [currentFilters, setCurrentFilters] = useState({});
+
   useEffect(() => {
-    dispatch(searchRecipes({ page: 1 }));
+    const initialFilters = { page: 1 };
+    dispatch(searchRecipes(initialFilters));
+    setCurrentFilters(initialFilters);
   }, [dispatch]);
 
-  const fetchMoreData = () => {
+  const fetchMoreData = (filters) => {
     if (hasMore) {
-      dispatch(searchRecipes({ page: currentPage + 1 }));
+      const nexpPageFilters = { ...currentFilters, page: currentPage + 1 };
+      dispatch(searchRecipes(nexpPageFilters));
     }
+  };
+
+  const handleSearch = (filters) => {
+    const newFilters = { ...filters, page: 1 };
+    dispatch(resetSearch());
+    dispatch(searchRecipes(newFilters)); // Update this action as needed to accommodate filters
+    setCurrentFilters(newFilters);
   };
 
   const renderRecipes = () => {
@@ -35,23 +48,25 @@ const RecipeGallery = () => {
         return <p>Loading...</p>;
       }
       return (
-        <li key={recipe.id} className={styles.recipeSquare}>
-          <Link to={`/recipe/${recipe.id}`}>
-            <img
-              src={recipe.image}
-              alt={recipe.title}
-              className={styles.recipeImg}
-            />
-            <p className={styles.author}>
-              <b>Created by</b> {recipe.author}
-            </p>
-            <h3 className={styles.recipeTitle}>{recipe.title}</h3>
-            <p className={styles.yield}>
-              <b>Servings:</b> {recipe.yield}
-            </p>
-            {/* <p>{recipe.description}</p> */}
-          </Link>
-        </li>
+        <div className={styles.recipeSquareContainer}>
+          <li key={recipe.id} className={styles.recipeSquare}>
+            <Link to={`/recipe/${recipe.id}`}>
+              <img
+                src={recipe.image}
+                alt={recipe.title}
+                className={styles.recipeImg}
+              />
+              <p className={styles.author}>
+                <b>Created by</b> {recipe.author}
+              </p>
+              <h3 className={styles.recipeTitle}>{recipe.title}</h3>
+              <p className={styles.yield}>
+                <b>Servings:</b> {recipe.yield}
+              </p>
+              {/* <p>{recipe.description}</p> */}
+            </Link>
+          </li>
+        </div>
       );
     });
   };
@@ -59,7 +74,8 @@ const RecipeGallery = () => {
   return (
     <div className={styles.background}>
       <div className={styles.gallery}>
-        <h1 className={styles.heading}>Recipe Gallery</h1>
+        {/* <h1 className={styles.heading}>Recipe Gallery</h1> */}
+        <SearchForm onSearch={handleSearch} />
         {/* <img src="" alt="" className={styles.newRecipe} /> */}
         <Link to="/recipe-create" className={styles.newRecipe}>
           {/* <img

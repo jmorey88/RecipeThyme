@@ -12,7 +12,11 @@ export const searchRecipes = createAsyncThunk(
       if (loading !== "pending" || requestId !== currentRequestId) {
         return;
       }
-      const response = await recipeService.fetchRecipes(searchParams.page);
+
+      // dispatch(resetSearch());
+
+      console.log(searchParams);
+      const response = await recipeService.fetchRecipes(searchParams);
       const recipes = response.recipes;
       const metaData = response.meta;
 

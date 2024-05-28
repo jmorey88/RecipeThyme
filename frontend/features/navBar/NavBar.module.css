@@ -69,6 +69,10 @@
   background-color: rgb(86, 170, 196);
 }
 
+.navbarButton:hover {
+  background-color: rgb(94, 165, 186)
+}
+
 .logo {
   height: 54px;
   width: 65px;

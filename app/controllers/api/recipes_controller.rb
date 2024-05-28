@@ -20,14 +20,49 @@ class Api::RecipesController < ApplicationController
   def index
     page_size = params.fetch(:page_size, 20).to_i
     page_number = [params.fetch(:page, 1).to_i, 1].max
-
     offset = (page_number - 1) * page_size
 
-    @total_entries = Recipe.count
+    keyword = params[:keyword]
+    tag_ids = params[:tag_ids]&.split(',') 
+    own_recipes = params[:ownRecipes] == 'true'
+
+    # recipes_query = Recipe.eager_load(:author)
+    recipes_query = Recipe.includes(:author)
+    # recipes_query = Recipe.all
+
+
+    query = <<-SQL
+      LOWER(recipes.title) LIKE :keyword OR 
+      LOWER(recipes.description) LIKE :keyword OR 
+      LOWER(recipes.ingredients) LIKE :keyword
+    SQL
+
+    if keyword.present?
+      keyword_condition = "%#{keyword.downcase}%"
+      recipes_query = recipes_query.where(query, keyword: keyword_condition)
+    end
+
+    if tag_ids.present?
+      recipes_query = recipes_query.joins(:taggings)
+      .where(taggings: { tag_id: tag_ids })
+      .group('recipes.id')
+      .having('COUNT(DISTINCT taggings.tag_id) = ?', tag_ids.count)
+      @total_entries = recipes_query.count.keys.length
+    else
+      @total_entries = recipes_query.count
+    end
+
+    if own_recipes
+      recipes_query = recipes_query.where(author_id: current_user.id)
+    end
+
+    # @total_entries = recipes_query.count('DISTINCT recipes.id')
+    # @total_entries = recipes_query.count.length
     @total_pages = (@total_entries.to_f / page_size).ceil
     @current_page = page_number
 
-    @recipes = Recipe.order(updated_at: :desc).limit(page_size).offset(offset)
+    @recipes = recipes_query.order(updated_at: :desc).limit(page_size).offset(offset)
+
   end
 
   def update
@@ -72,6 +107,13 @@ class Api::RecipesController < ApplicationController
   rescue => e
     Rails.logger.error "Upload failed: #{e.message}"
     render json: { errors: 'Image upload failed' }, status: :unprocessable_entity
+  end
+
+  def tags_by_recipe
+    recipe = Recipe.find(params[:id])
+    tags = recipe.tags
+    puts tags
+    render json: tags
   end
   
 

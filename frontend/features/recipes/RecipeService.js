@@ -85,10 +85,12 @@ export const destroyRecipe = async (recipeId) => {
   return response.json();
 };
 
-export const fetchRecipeTags = async () => {
-  const response = await fetch("/api/tags", {
-    method: "GET",
-  });
-
+export const fetchRecipeTagsByRecipeId = async (recipeId) => {
+  const response = await fetch(
+    `http://localhost:3000/api/recipes/${recipeId}/tags`
+  );
+  if (!response.ok) {
+    throw new Error("Failed to fetch tags");
+  }
   return response.json();
 };

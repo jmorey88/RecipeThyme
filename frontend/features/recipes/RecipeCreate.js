@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { createRecipe } from "./recipeSlice";
 import { resetSearch } from "../search/searchSlice";
-import { fetchRecipeTags } from "./RecipeService";
+import { fetchRecipeTags } from "../Tags/tagService";
 import styles from "./RecipeCreate.module.css";
 
 const RecipeForm = () => {

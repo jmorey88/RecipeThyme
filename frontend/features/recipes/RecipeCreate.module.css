@@ -7,7 +7,7 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  background: rgb(248, 222, 198);
+  background: #f9f2ea;
   width: 100%;
   /* padding: 20px; */
 }
@@ -31,8 +31,11 @@
   color: #015669;
   padding-left: 2%;
   margin-top: 2%;
-  background: #fffcf7;
+  /* background: #fffcf7; */
+  background: white;
   border-radius: 3vh;
+  margin-bottom: 4%;
+  border: 1px solid #015669bf;
 }
 
 .createForm div {
@@ -63,7 +66,7 @@
   /* margin-top: 18%; */
   /* margin-right: 6%; */
   /* margin-left: auto; */
-  width: 78%;
+  width: 91%;
   height: 52vh;
   padding-right: 3%;
   /* padding-left: 3%; */
@@ -78,16 +81,17 @@
 }
 
 .tagBorder {
-  width: 100%;
+  width: 94%;
   height: 83%;
   background-color: #ebeff0; 
-  border: 1px solid black;
+  border: 1px solid rgb(174, 169, 169);
   border-radius: 15px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-evenly;
   padding-top: 3%;
+  padding-left: 6%;
   
 }
 
@@ -101,8 +105,8 @@
   font-size: 2.1vh;
   font-weight: 600;
   /* margin-right: 0%; */
-  width: 36%;
-  padding: 2%;
+  width: 26%;
+  padding: 0%;
   /* flex-basis: 50%; */
 }
 
@@ -111,6 +115,14 @@
   margin-left: 19%; */
   /* width: 10%; */
   margin-right: 12%;
+  accent-color: #015669;
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+.tagItem input:hover {
+  accent-color: #4c97a6;
+  transform: scale(1.5);
 }
 
 /* .tagInput {
@@ -131,8 +143,8 @@ tagItem input[type="checkbox"] {
   resize: none;
   /* width: 100%; */
   font-size: 2.2vh;
-  width: 80%;
-  border: 1px solid black;
+  width: 84%;
+  border: 1px solid rgb(174, 169, 169);
   /* border: none; */
   border-radius: 26px;
   padding: 3%;
@@ -158,10 +170,11 @@ tagItem input[type="checkbox"] {
 } */
 
 .formInput {
-  width: 83%;
+  width: 85%;
   font-size: 2.15vh;
   /* border: 2px solid black; */
-  border: none;
+  /* border: none; */
+  border: 1px solid rgb(174, 169, 169);
   border-radius: 26px;
   padding: 1.8vh;
   padding-left: 3vh;
@@ -169,6 +182,10 @@ tagItem input[type="checkbox"] {
   font-family: "Poppins",
     "Poppins SC",
     sans-serif;
+}
+
+.formInput[name='title'] {
+  width: 86%;
 }
 
 .formTitle {
@@ -181,6 +198,8 @@ tagItem input[type="checkbox"] {
 .yieldTimeInput {
   display: flex;
   flex-direction: row;
+  justify-content: space-around;
+  width: 93%;
 }
 
 .yieldTimeInput div {
@@ -209,4 +228,9 @@ tagItem input[type="checkbox"] {
   height: 43px;
   width: 34%;
   margin-bottom: 2%;
+  cursor: pointer;
+}
+
+.createForm button:hover {
+  background-color: rgb(94, 165, 186);
 }

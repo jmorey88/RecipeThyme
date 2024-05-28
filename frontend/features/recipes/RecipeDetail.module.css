@@ -58,7 +58,7 @@ label {
   height: 100%;
   /* margin-left: 6%; */
   /* margin-right: 2%; */
-  width: 63%;
+  width: 53%;
   padding-right: 4%;
   /* overflow: hidden; */
   /* justify-content: center; */
@@ -159,13 +159,14 @@ label {
   display: flex;
   flex-direction: column;
   margin: 2% 2% 2% 0;
-  margin-top: 12%;
+  margin-top: 8%;
+  margin-right: 0%;
   align-items: flex-start;
   justify-content: center;
   /* margin-left: 5%; */
   /* margin-top: 7vh; */
   /* max-width: 50%; */
-  width: 21%;
+  width: 20%;
   height: 100%;
 }
 
@@ -269,6 +270,29 @@ label {
   margin-right: 5%;
   margin-bottom: 1%;
   padding-left: 2%;
+}
+
+.tagsContainer {
+  display: flex;
+  flex-direction: column;
+  height: 78%;
+  justify-content: center;
+  width: 20%;
+  /* border-left: 1px solid antiquewhite; */
+  margin-top: 8%;
+}
+
+.tagNameContainer {
+  width: 44%;
+  text-align: center;
+  background: white;
+  border: 1px solid #015669;
+  border-radius: 1.5vh;
+  margin-left: 15%;
+  margin-top: 12%;
+  font-weight: 600;
+  color: #015669;
+  padding: 1%;
 }
 
 .description {

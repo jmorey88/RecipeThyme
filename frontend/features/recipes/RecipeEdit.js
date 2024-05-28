@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import { useParams } from "react-router-dom";
 import { requestEditRecipe, recieveRecipeDetails } from "./recipeSlice";
 import { resetSearch } from "../search/searchSlice";
-import { fetchRecipeTags } from "./RecipeService";
+import { fetchRecipeTags } from "../Tags/tagService";
 import styles from "./RecipeEdit.module.css";
 // import { unstable_useViewTransitionState } from "react-router-dom";
 // import { editRecipe } from "./RecipeService";
@@ -20,16 +20,46 @@ const EditRecipeForm = () => {
     (state) => state.recipes.recipeEntities[recipeId]
   );
 
+  // const [formData, setFormData] = useState({
+  //   title: currentRecipe.title,
+  //   description: currentRecipe.description,
+  //   yield: currentRecipe.yield,
+  //   active_time: currentRecipe.active_time,
+  //   total_time: currentRecipe.total_time,
+  //   ingredients: currentRecipe.ingredients,
+  //   instructions: currentRecipe.instructions,
+  //   // image: null,
+  // });
+
   const [formData, setFormData] = useState({
-    title: currentRecipe.title,
-    description: currentRecipe.description,
-    yield: currentRecipe.yield,
-    active_time: currentRecipe.active_time,
-    total_time: currentRecipe.total_time,
-    ingredients: currentRecipe.ingredients,
-    instructions: currentRecipe.instructions,
-    // image: null,
+    title: "",
+    description: "",
+    yield: "",
+    active_time: "",
+    total_time: "",
+    ingredients: "",
+    instructions: "",
   });
+
+  useEffect(() => {
+    if (currentRecipe) {
+      setFormData({
+        title: currentRecipe.title,
+        description: currentRecipe.description,
+        yield: currentRecipe.yield,
+        active_time: currentRecipe.active_time,
+        total_time: currentRecipe.total_time,
+        ingredients: currentRecipe.ingredients,
+        instructions: currentRecipe.instructions,
+      });
+    }
+  }, [currentRecipe]);
+
+  useEffect(() => {
+    if (!currentRecipe) {
+      dispatch(recieveRecipeDetails(recipeId));
+    }
+  }, [dispatch, currentRecipe]);
 
   useEffect(() => {
     if (currentRecipe && currentRecipe.tag_ids) {
@@ -38,6 +68,9 @@ const EditRecipeForm = () => {
   }, [currentRecipe]);
 
   useEffect(() => {
+    // if (!currentRecipe) {
+    //   dispatch(recieveRecipeDetails(recipeId));
+    // }
     const loadTags = async () => {
       const tagsData = await fetchRecipeTags();
       setTags(tagsData);
@@ -83,6 +116,10 @@ const EditRecipeForm = () => {
     } else if (editRecipeResult.type.endsWith("rejected"))
       alert(editRecipeResult.payload || "failed to edit recipe-comp");
   };
+
+  if (!currentRecipe) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className={styles.editFormBackground}>

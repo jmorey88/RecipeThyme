@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,19 +8,36 @@ import {
   requestDeleteRecipe,
 } from "./recipeSlice";
 import styles from "./RecipeDetail.module.css";
+import { fetchRecipeTagsByRecipeId } from "./RecipeService";
 
 const RecipeDetail = () => {
   const { recipeId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [tags, setTags] = useState([]);
   const recipe = useSelector((state) => state.recipes.recipeEntities[recipeId]);
   const currentUserId = useSelector((state) => state.session.currentUser.id);
+  // const tagIds = useSelector((state) => state.recipes.recipeEntities)
 
   useEffect(() => {
     if (!recipe || !recipe.detailed) {
       dispatch(recieveRecipeDetails(recipeId));
     }
   }, [dispatch, recipe]);
+
+  useEffect(() => {
+    if (recipeId) {
+      const loadTags = async () => {
+        try {
+          const tagsData = await fetchRecipeTagsByRecipeId(recipeId);
+          setTags(tagsData);
+        } catch (error) {
+          console.error("Failed to fetch tags:", error);
+        }
+      };
+      loadTags();
+    }
+  }, [recipeId]);
 
   const handleDelete = async () => {
     const isConfirmed = window.confirm(
@@ -88,9 +105,9 @@ const RecipeDetail = () => {
 
   return (
     <div className={styles.background}>
-      <Link to="/recipe-gallery" className={styles.galleryNav}>
+      {/* <Link to="/recipe-gallery" className={styles.galleryNav}>
         &lt; <u>Recipe Gallery</u>
-      </Link>
+      </Link> */}
       <div className={styles.topHalf}>
         <div className={styles.imageWrapper}>
           <img
@@ -117,7 +134,7 @@ const RecipeDetail = () => {
                   alt="Upload Image"
                   className={styles.uploadIcon}
                 />
-                Upload New Image
+                Update Image
               </label>
             </>
           )}
@@ -138,7 +155,7 @@ const RecipeDetail = () => {
                   alt="pencil-icon"
                   className={styles.pencil}
                 ></img>
-                EDIT RECIPE
+                EDIT
               </Link>
               <button onClick={handleDelete} className={styles.delete}>
                 <img
@@ -146,10 +163,17 @@ const RecipeDetail = () => {
                   alt="trash-icon"
                   className={styles.trash}
                 ></img>
-                DELETE RECIPE
+                DELETE
               </button>
             </div>
           ) : null}
+        </div>
+        <div className={styles.tagsContainer}>
+          {tags.map((tag) => (
+            <div key={tag.id} className={styles.tagNameContainer}>
+              {tag.name}
+            </div>
+          ))}
         </div>
       </div>
       <div className={styles.description}>

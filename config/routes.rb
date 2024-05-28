@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     post '/login', to: 'sessions#create'
     delete '/logout', to: 'sessions#destroy'
     get '/current', to: 'users#current'
+    get '/recipes/:id/tags', to: 'recipes#tags_by_recipe'
     resources :recipes, only: [:create, :show, :update, :index, :destroy]
     put '/recipes/:id/upload_image', to: 'recipes#upload_image'
   end
