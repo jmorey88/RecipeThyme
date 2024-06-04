@@ -43,8 +43,7 @@ RecipeThyme is a vibrant web application designed for cooking enthusiasts and cu
 - Technical Details
 - Future Enhancements
 - Contributing
-- License
-- Acknowledgments
+- Credits
 
 ## Introduction
 
