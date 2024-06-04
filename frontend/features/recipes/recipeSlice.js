@@ -35,9 +35,6 @@ export const handleRecipeImage = createAsyncThunk(
     try {
       const result = await uploadRecipeImage(recipeId, imageFile);
       return result;
-      // } catch (error) {
-      //   console.log("result", result);
-      //   return rejectWithValue(result);
     } catch (error) {
       console.log("error:", error);
       return rejectWithValue(error.message);
@@ -88,15 +85,12 @@ export const recipeSlice = createSlice({
     },
     updateRecipeDetail: (state, action) => {
       const detailedRecipe = action.payload;
-      // if (state.recipeEntities[detailedRecipe.id]) {
       state.recipeEntities[detailedRecipe.id] = {
         ...state.recipeEntities[detailedRecipe.id],
         ...detailedRecipe,
         detailed: true,
       };
       state.currentId = detailedRecipe.id;
-      // }
-      // state.recipeEntities.push([detailedRecipe]);
     },
   },
   extraReducers: (builder) => {

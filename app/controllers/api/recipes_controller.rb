@@ -1,5 +1,4 @@
 class Api::RecipesController < ApplicationController
-  # before_action :set_recipe, only: [:show, :edit, :update, :destroy, :upload_image]
   require 'aws-sdk-s3'
 
   def create
@@ -26,10 +25,7 @@ class Api::RecipesController < ApplicationController
     tag_ids = params[:tag_ids]&.split(',') 
     own_recipes = params[:ownRecipes] == 'true'
 
-    # recipes_query = Recipe.eager_load(:author)
     recipes_query = Recipe.includes(:author)
-    # recipes_query = Recipe.all
-
 
     query = <<-SQL
       LOWER(recipes.title) LIKE :keyword OR 
@@ -56,8 +52,6 @@ class Api::RecipesController < ApplicationController
       recipes_query = recipes_query.where(author_id: current_user.id)
     end
 
-    # @total_entries = recipes_query.count('DISTINCT recipes.id')
-    # @total_entries = recipes_query.count.length
     @total_pages = (@total_entries.to_f / page_size).ceil
     @current_page = page_number
 
@@ -118,10 +112,6 @@ class Api::RecipesController < ApplicationController
   
 
   private 
-
-  # def set_recipe
-  #   @recipe = Recipe.find(params[:id])
-  # end
 
   def recipe_params
     params.require(:recipe).permit(:title, :description, :yield, :active_time, :total_time, :ingredients, :instructions, tag_ids: [])

@@ -17,7 +17,6 @@ const RecipeDetail = () => {
   const [tags, setTags] = useState([]);
   const recipe = useSelector((state) => state.recipes.recipeEntities[recipeId]);
   const currentUserId = useSelector((state) => state.session.currentUser.id);
-  // const tagIds = useSelector((state) => state.recipes.recipeEntities)
 
   useEffect(() => {
     if (!recipe || !recipe.detailed) {
@@ -55,37 +54,16 @@ const RecipeDetail = () => {
     }
   };
 
-  // const handleImageChange = async (e) => {
-  //   const file = e.target.files[0];
-  //   if (file) {
-  //     try {
-  //       await dispatch(handleRecipeImage({ recipeId, imageFile: file }));
-  //       alert("Image uploaded successfully");
-  //       dispatch(recieveRecipeDetails(recipeId));
-  //     } catch (error) {
-  //       alert("Failed to upload image");
-  //     }
-  //   }
-  // };
   const handleImageChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
       const actionResult = await dispatch(
         handleRecipeImage({ recipeId, imageFile: file })
       );
-
-      // Check if the dispatch action was fulfilled (successfully resolved)
       if (actionResult.type.endsWith("fulfilled")) {
         alert("Image uploaded successfully");
         dispatch(recieveRecipeDetails(recipeId));
       } else if (actionResult.type.endsWith("rejected")) {
-        // Handle the case where the action was rejected (error occurred)
-        // Assuming the error structure is consistent as mentioned earlier
-        // const errorMessage =
-        //   actionResult.errors?.message ||
-        //   "Failed to upload image. Please try again.";
-        // console.log("actionResult:", actionResult);
-        // alert(errorMessage);
         alert(
           actionResult.payload || "Failed to upload image. Please try again."
         );
@@ -94,10 +72,6 @@ const RecipeDetail = () => {
   };
 
   const isAuthor = currentUserId === recipe?.author_id;
-  // console.log("recipe:", recipe);
-  // console.log("currentUserId:", currentUserId);
-  // console.log("recipe.author_id:", recipe.author_id);
-  // console.log("isAuthor:", isAuthor);
 
   if (!recipe) {
     return <div>Loading...</div>;
@@ -105,9 +79,6 @@ const RecipeDetail = () => {
 
   return (
     <div className={styles.background}>
-      {/* <Link to="/recipe-gallery" className={styles.galleryNav}>
-        &lt; <u>Recipe Gallery</u>
-      </Link> */}
       <div className={styles.topHalf}>
         <div className={styles.imageWrapper}>
           <img
@@ -121,11 +92,8 @@ const RecipeDetail = () => {
                 type="file"
                 onChange={handleImageChange}
                 id="fileInput"
-                // className={styles.fileInput}
                 style={{
                   display: "none",
-                  // backgroundImage:
-                  //   "url('https://recipe-thyme-content.s3.us-west-1.amazonaws.com/app-images/camera-2112207_1280.png')",
                 }}
               />
               <label htmlFor="fileInput" className={styles.uploadButton}>
@@ -210,31 +178,3 @@ const RecipeDetail = () => {
 };
 
 export default RecipeDetail;
-
-{
-  /* <div className={styles.imageWrapper}>
-  <img src={recipe.image} alt={recipe.title} className={styles.recipeImage} />
-  {isAuthor ? (
-    <div className={styles.uploadImageWrapper}>
-      <input type="file" onChange={handleImageChange} id="fileInput" />
-      <label htmlFor="fileInput" className={styles.uploadIcon}>
-        <img
-          src="https://recipe-thyme-content.s3.us-west-1.amazonaws.com/app-images/camera-2112207_1280.png"
-          alt="upload"
-          className={styles.cameraImage}
-        />
-      </label>
-    </div>
-  ) : null}
-</div>; */
-}
-
-{
-  /* <label htmlFor="fileInput" className={styles.uploadIcon}>
-  <img
-    src="https://recipe-thyme-content.s3.us-west-1.amazonaws.com/app-images/camera-2112207_1280.png"
-    alt="upload"
-    // className={styles.cameraImage}
-  />
-</label>; */
-}

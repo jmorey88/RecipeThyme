@@ -6,7 +6,7 @@
 
 # Ignore bundler config.
 /.bundle
-/app/javascript/bundle.js
+# /app/javascript/bundle.js
 
 # Ignore all environment files (except templates).
 /.env*

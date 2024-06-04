@@ -18,17 +18,20 @@
 .titleLink {
   text-decoration: none;
   font-size: 4vh;
-  /* font-weight: 700; */
   color: #015669;
-  /* font-style: italic; */
+}
+
+.loginDiv {
+  width: 79%;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
 }
 
 .sessionLink {
   display: inline-block;
   padding: 10px 20px;
   text-decoration: none;
-  margin-left: auto;
-  margin-right: 2%;
   color: black;
   background-color: rgb(43 148 179);
   color: white;
@@ -63,6 +66,10 @@
     "Poppins SC",
     sans-serif;
   width: 9%;
+}
+
+.loginDiv button {
+  width: 15%;
 }
 
 .sessionLink:hover {

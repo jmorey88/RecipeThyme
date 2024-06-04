@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import styles from "./NavBar.module.css";
 import { logout } from "../auth/sessionSlice.js";
 import { resetStore } from "../../utils/store_util.jsx";
+import { login } from "../auth/sessionSlice";
 
 const NavBar = () => {
   const dispatch = useDispatch();
@@ -16,12 +17,21 @@ const NavBar = () => {
     navigate("/");
     dispatch(resetStore());
   };
+
+  const handleGuestLogin = async () => {
+    const actionResult = await dispatch(
+      login({ username: "guest_user", password: "ui9S6hkb@0^D3FWY1il2" })
+    );
+    if (actionResult.type.endsWith("rejected")) {
+      alert(actionResult.payload || "Invalid credentials.  Please try again.");
+    }
+  };
+
   const location = useLocation();
 
   const isLoggedIn = useSelector((state) => state.session.currentUser);
 
   const logoUrl =
-    // "https://recipe-thyme-content.s3.us-west-1.amazonaws.com/app-images/recipeThymeLogo.png";
     "https://recipe-thyme-content.s3.us-west-1.amazonaws.com/app-images/recipeThymeLogoBlue.png";
 
   return (
@@ -37,13 +47,23 @@ const NavBar = () => {
           Logout
         </button>
       ) : location.pathname === "/login" ? (
-        <Link to="/signup" className={styles.sessionLink}>
-          SignUp
-        </Link>
+        <div className={styles.loginDiv}>
+          <button onClick={handleGuestLogin} className={styles.navbarButton}>
+            Guest Login
+          </button>
+          <Link to="/signup" className={styles.sessionLink}>
+            SignUp
+          </Link>
+        </div>
       ) : (
-        <Link to="/login" className={styles.sessionLink}>
-          Login
-        </Link>
+        <div className={styles.loginDiv}>
+          <button onClick={handleGuestLogin} className={styles.navbarButton}>
+            Guest Login
+          </button>
+          <Link to="/login" className={styles.sessionLink}>
+            Login
+          </Link>
+        </div>
       )}
     </nav>
   );

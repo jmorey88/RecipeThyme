@@ -6,8 +6,6 @@ import { requestEditRecipe, recieveRecipeDetails } from "./recipeSlice";
 import { resetSearch } from "../search/searchSlice";
 import { fetchRecipeTags } from "../Tags/tagService";
 import styles from "./RecipeEdit.module.css";
-// import { unstable_useViewTransitionState } from "react-router-dom";
-// import { editRecipe } from "./RecipeService";
 
 const EditRecipeForm = () => {
   const dispatch = useDispatch();
@@ -19,17 +17,6 @@ const EditRecipeForm = () => {
   const currentRecipe = useSelector(
     (state) => state.recipes.recipeEntities[recipeId]
   );
-
-  // const [formData, setFormData] = useState({
-  //   title: currentRecipe.title,
-  //   description: currentRecipe.description,
-  //   yield: currentRecipe.yield,
-  //   active_time: currentRecipe.active_time,
-  //   total_time: currentRecipe.total_time,
-  //   ingredients: currentRecipe.ingredients,
-  //   instructions: currentRecipe.instructions,
-  //   // image: null,
-  // });
 
   const [formData, setFormData] = useState({
     title: "",
@@ -68,9 +55,6 @@ const EditRecipeForm = () => {
   }, [currentRecipe]);
 
   useEffect(() => {
-    // if (!currentRecipe) {
-    //   dispatch(recieveRecipeDetails(recipeId));
-    // }
     const loadTags = async () => {
       const tagsData = await fetchRecipeTags();
       setTags(tagsData);
@@ -106,10 +90,8 @@ const EditRecipeForm = () => {
     );
     console.log("formData-comp:", formData);
     console.log("recipeData-comp:", recipeData);
-    // const recipeId = newRecipe.payload.id;
     if (editRecipeResult.type.endsWith("fulfilled")) {
       alert("recipe successfully updated");
-      // dispatch(resetSearch());
       console.log("navigated");
       dispatch(recieveRecipeDetails(recipeId));
       navigate(`/recipe/${recipeId}`);
@@ -218,7 +200,6 @@ const EditRecipeForm = () => {
             required
           />
         </div>
-        {/* <input type="file" name="image" onChange={handleImageChange} /> */}
         <div className={styles.tagContainer}>
           <h3 className={styles.tagTitle}>Tags</h3>
           <div className={styles.tagBorder}>

@@ -13,8 +13,6 @@ export const searchRecipes = createAsyncThunk(
         return;
       }
 
-      // dispatch(resetSearch());
-
       console.log(searchParams);
       const response = await recipeService.fetchRecipes(searchParams);
       const recipes = response.recipes;

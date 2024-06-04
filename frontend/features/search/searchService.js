@@ -14,13 +14,6 @@ export const fetchRecipes = async (searchParams) => {
     }
   });
 
-  // const response = await fetch(
-  //   `http://localhost:3000/api/recipes?page=${page}`,
-  //   {
-  //     method: "GET",
-  //   }
-  // );
-
   const response = await fetch(url, {
     method: "GET",
   });

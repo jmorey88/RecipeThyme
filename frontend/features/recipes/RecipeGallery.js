@@ -37,7 +37,7 @@ const RecipeGallery = () => {
   const handleSearch = (filters) => {
     const newFilters = { ...filters, page: 1 };
     dispatch(resetSearch());
-    dispatch(searchRecipes(newFilters)); // Update this action as needed to accommodate filters
+    dispatch(searchRecipes(newFilters));
     setCurrentFilters(newFilters);
   };
 
@@ -63,7 +63,6 @@ const RecipeGallery = () => {
               <p className={styles.yield}>
                 <b>Servings:</b> {recipe.yield}
               </p>
-              {/* <p>{recipe.description}</p> */}
             </Link>
           </li>
         </div>
@@ -74,18 +73,8 @@ const RecipeGallery = () => {
   return (
     <div className={styles.background}>
       <div className={styles.gallery}>
-        {/* <h1 className={styles.heading}>Recipe Gallery</h1> */}
         <SearchForm onSearch={handleSearch} />
-        {/* <img src="" alt="" className={styles.newRecipe} /> */}
         <Link to="/recipe-create" className={styles.newRecipe}>
-          {/* <img
-            src="https://recipe-thyme-content.s3.us-west-1.amazonaws.com/app-images/plus.png"
-            alt="plus"
-            className={styles.plus}
-          /> */}
-          {/* <p>
-            + <u>New Recipe</u>
-          </p> */}
           + New Recipe
         </Link>
       </div>
