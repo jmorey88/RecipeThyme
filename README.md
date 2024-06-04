@@ -109,20 +109,16 @@ Set up the frontend:
 npm install
 
 # Use Webpack to bundle the assets
-npm run build 
+npm run webpack
 ```
 
-Start the backend server:
+In a new terminal start the backend server:
 
 ```bash
 rails s
 ```
 
-In a new terminal, start the frontend server:
 
-```bash
-npm start
-```
 
 ### Usage
 
