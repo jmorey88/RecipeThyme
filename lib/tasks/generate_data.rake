@@ -7,46 +7,6 @@ require 'open-uri'
 namespace :data do
   namespace :generate do
 
-    # /////// Generate Users ///////
-
-    desc "Generate sample users data for seeding"
-    task users: :environment do
-
-      puts "Generating user data..."
-      
-      users = []
-      19.times do
-
-        password = Faker::Internet.password(min_length: 10, max_length: 20, mix_case: true, special_characters: true)
-
-        users << {
-          username: Faker::Internet.unique.username,
-          email: Faker::Internet.email,
-          first_name: Faker::Name.first_name,
-          last_name: Faker::Name.last_name,
-          password: password,
-          password_confirmation: password
-        }
-      end
-
-      password = Faker::Internet.password(min_length: 10, max_length: 20, mix_case: true, special_characters: true)
-
-      users << {
-        username: "guest_user",
-        email: "guest_user@guest.test",
-        first_name: "Guest",
-        last_name: "User",
-        password: password,
-        password_confirmation: password
-      }
-      
-      File.open(Rails.root.join('db', 'userSeedData.json'), 'w') do |file|
-        file.write(JSON.pretty_generate(users))
-      end
-      
-      puts "Generated user data saved to db/userSeedData.json"
-    end
-
     # ////////// Generate Titles //////////////
     
     desc "Generate recipe titles"

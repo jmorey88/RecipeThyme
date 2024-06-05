@@ -9,13 +9,31 @@ Tag::CATEGORIES.each do |category|
 end
 puts 'Tags seeded.'
 
-# ///// Seed Users /////////
-puts 'Seeding Users...'
-user_data = JSON.parse(File.read(Rails.root.join('db', 'userSeedData.json')))
-user_data.each do |user_attrs|
-  User.create!(user_attrs)
+puts "Generating new users..."
+
+19.times do 
+
+  password = Faker::Internet.password(min_length: 10, max_length: 20, mix_case: true, special_characters: true)
+
+  User.create!(
+    username: Faker::Internet.unique.username,
+    email: Faker::Internet.email,
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
+    password: password,
+    password_confirmation: password
+  )
 end
-puts 'Users seeded.'
+
+User.create!(
+  username: "guest_user",
+  email: "guest_user@guest.test",
+  first_name: "Guest",
+  last_name: "User",
+  password: "guest_password",
+  password_confirmation: "guest_password"
+)
+
 
 # //////// Seed Recipes and Taggings //////
 puts 'Seeding Recipes...'

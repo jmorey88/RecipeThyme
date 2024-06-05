@@ -20,7 +20,7 @@ const NavBar = () => {
 
   const handleGuestLogin = async () => {
     const actionResult = await dispatch(
-      login({ username: "guest_user", password: "ui9S6hkb@0^D3FWY1il2" })
+      login({ username: "guest_user", password: "guest_password" })
     );
     if (actionResult.type.endsWith("rejected")) {
       alert(actionResult.payload || "Invalid credentials.  Please try again.");

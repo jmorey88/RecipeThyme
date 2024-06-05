@@ -83,6 +83,30 @@ Ensure you have the following installed on your system:
 - **Node.js and npm:** Needed for managing frontend dependencies.
 - **Webpack v5.90.1:** Used to bundle JavaScript files and manage frontend assets efficiently. Ensure that Webpack is configured correctly to handle the application’s asset compilation and loading. 
 
+### Configuration 
+
+Environment Setup:
+
+- Copy the `.env.example` file to create a new `.env` file in your project root:
+  
+  ```bash
+  cp .env.example .env
+  ```
+- Open the `.env` file and fill in the required credentials:
+  - **AWS_ACCESS_KEY_ID:** Your AWS access key.
+  - **AWS_SECRET_ACCESS_KEY:** Your AWS secret access key.
+  - **AWS_REGION:** Your AWS Region.
+  - **S3_BUCKET_NAME** Your AWS bucket name.
+  - **DATABASE_USER:** The username for your PostgreSQL database.
+  - **DATABASE_PASSWORD:** The password for your PostgreSQL database.
+
+  Make sure to set up an AWS S3 bucket and get the credentials to be able to handle image uploads.
+
+Database Configuration:
+
+- Ensure that PostgreSQL is set up on your machine. Create a database user and password if you haven't already, and add these credentials to the `.env` file.
+
+
 ### Installation
 
 Clone the repository:
