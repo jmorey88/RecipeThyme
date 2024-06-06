@@ -4,6 +4,15 @@ const path = require("path");
 module.exports = (env, argv) => {
   const isProduction = argv.mode === "production";
 
+  if (process.env.NODE_ENV === "production") {
+    console.log(
+      process.env.NODE_ENV,
+      "<<<<<<<<<<<<<<<<<webpack production!!!>>>>>>>>>>>>>>>"
+    );
+  } else {
+    console.log(process.env.NODE_ENV, "<<<<<<<webpack dev?>>>>>>>>>");
+  }
+
   return {
     mode: isProduction ? "production" : "development",
     context: __dirname,
