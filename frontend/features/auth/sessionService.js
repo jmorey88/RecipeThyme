@@ -1,7 +1,9 @@
-const API_BASE_URL =
-  process.env.NODE_ENV === "production"
-    ? "https://secure-fortress-86280-1b73326dc9fb.herokuapp.com/api"
-    : "http://localhost:3000/api";
+// const API_BASE_URL =
+// process.env.NODE_ENV === "production"
+// ? "https://secure-fortress-86280-1b73326dc9fb.herokuapp.com/api"
+// : "http://localhost:3000/api";
+
+import API_BASE_URL from "../../utils/hostNameUtil";
 
 export const postSignUp = async (userData) => {
   const response = await fetch(`${API_BASE_URL}/users`, {
