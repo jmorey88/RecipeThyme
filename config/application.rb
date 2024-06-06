@@ -16,6 +16,14 @@ module RecipeThyme
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w(assets tasks))
 
+    # Add CORS configuration
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins 'https://secure-fortress-86280-1b73326dc9fb.herokuapp.com'
+        resource '*', headers: :any, methods: [:get, :post, :put, :patch, :delete, :options, :head]
+      end
+    end
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

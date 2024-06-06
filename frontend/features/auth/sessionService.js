@@ -1,5 +1,10 @@
+const API_BASE_URL =
+  process.env.NODE_ENV === "production"
+    ? "https://secure-fortress-86280-1b73326dc9fb.herokuapp.com/api"
+    : "http://localhost:3000/api";
+
 export const postSignUp = async (userData) => {
-  const response = await fetch("http://localhost:3000/api/users", {
+  const response = await fetch(`${API_BASE_URL}/users`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -26,7 +31,7 @@ export const postSignUp = async (userData) => {
 };
 
 export const postLogin = async (userCredentials) => {
-  const response = await fetch("http://localhost:3000/api/login", {
+  const response = await fetch(`${API_BASE_URL}/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -50,7 +55,7 @@ export const postLogin = async (userCredentials) => {
 };
 
 export const deleteSession = async () => {
-  const response = await fetch("http://localhost:3000/api/logout", {
+  const response = await fetch(`${API_BASE_URL}/logout`, {
     method: "DELETE",
     credentials: "include",
     headers: {

@@ -1,6 +1,11 @@
+const API_BASE_URL =
+  process.env.NODE_ENV === "production"
+    ? "https://secure-fortress-86280-1b73326dc9fb.herokuapp.com/api"
+    : "http://localhost:3000/api";
+
 export const fetchRecipes = async (searchParams) => {
   const { page, keyword, tags, ownRecipes } = searchParams;
-  const url = new URL(`http://localhost:3000/api/recipes`);
+  const url = new URL(`${API_BASE_URL}/recipes`);
   const params = {
     page: page || 1,
     keyword,

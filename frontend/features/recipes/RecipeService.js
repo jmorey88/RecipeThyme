@@ -1,10 +1,12 @@
+const API_BASE_URL =
+  process.env.NODE_ENV === "production"
+    ? "https://secure-fortress-86280-1b73326dc9fb.herokuapp.com/api"
+    : "http://localhost:3000/api";
+
 export const fetchRecipeDetails = async (recipeId) => {
-  const response = await fetch(
-    `http://localhost:3000/api/recipes/${recipeId}`,
-    {
-      method: "GET",
-    }
-  );
+  const response = await fetch(`${API_BASE_URL}/recipes/${recipeId}`, {
+    method: "GET",
+  });
 
   if (!response.ok) {
     throw new Error("Error Loading Recipe");
@@ -14,7 +16,7 @@ export const fetchRecipeDetails = async (recipeId) => {
 };
 
 export const postNewRecipe = async (recipeDetails) => {
-  const response = await fetch("http://localhost:3000/api/recipes", {
+  const response = await fetch(`${API_BASE_URL}/recipes`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -45,10 +47,13 @@ export const uploadRecipeImage = async (recipeId, imageFile) => {
   const formData = new FormData();
   formData.append("image", imageFile);
 
-  const response = await fetch(`/api/recipes/${recipeId}/upload_image`, {
-    method: "PUT",
-    body: formData,
-  });
+  const response = await fetch(
+    `${API_BASE_URL}/recipes/${recipeId}/upload_image`,
+    {
+      method: "PUT",
+      body: formData,
+    }
+  );
 
   const responseData = await response.json();
 
@@ -61,7 +66,7 @@ export const uploadRecipeImage = async (recipeId, imageFile) => {
 };
 
 export const editRecipe = async (recipeId, recipeDetails) => {
-  const response = await fetch(`/api/recipes/${recipeId}`, {
+  const response = await fetch(`${API_BASE_URL}/recipes/${recipeId}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -78,7 +83,7 @@ export const editRecipe = async (recipeId, recipeDetails) => {
 };
 
 export const destroyRecipe = async (recipeId) => {
-  const response = await fetch(`/api/recipes/${recipeId}`, {
+  const response = await fetch(`${API_BASE_URL}/recipes/${recipeId}`, {
     method: "DELETE",
   });
 
@@ -86,9 +91,7 @@ export const destroyRecipe = async (recipeId) => {
 };
 
 export const fetchRecipeTagsByRecipeId = async (recipeId) => {
-  const response = await fetch(
-    `http://localhost:3000/api/recipes/${recipeId}/tags`
-  );
+  const response = await fetch(`${API_BASE_URL}/recipes/${recipeId}/tags`);
   if (!response.ok) {
     throw new Error("Failed to fetch tags");
   }
