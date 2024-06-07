@@ -1,16 +1,17 @@
 // webpack.config.js
+const webpack = require("webpack");
 const path = require("path");
 
 module.exports = (env, argv) => {
-  const isProduction = argv.mode === "production";
+  const mode = argv.mode || "development";
+  const isProduction = mode === "production";
 
-  if (process.env.NODE_ENV === "production") {
-    console.log(
-      process.env.NODE_ENV,
-      "<<<<<<<<<<<<<<<<<webpack production!!!>>>>>>>>>>>>>>>"
-    );
+  // new variable mode =  argv.mode never undefined pass to line 30
+
+  if (mode === "production") {
+    console.log(mode, "<<<<<<<<<<<<<<<<<webpack production!!!>>>>>>>>>>>>>>>");
   } else {
-    console.log(process.env.NODE_ENV, "<<<<<<<webpack dev?>>>>>>>>>");
+    console.log(mode, "<<<<<<<webpack dev?>>>>>>>>>");
   }
 
   return {
@@ -23,6 +24,13 @@ module.exports = (env, argv) => {
         : path.resolve(__dirname, "app", "javascript"),
       filename: "bundle.js",
     },
+    plugins: [
+      new webpack.DefinePlugin({
+        "process.env": {
+          NODE_ENV: JSON.stringify(mode),
+        },
+      }),
+    ],
     module: {
       rules: [
         {
