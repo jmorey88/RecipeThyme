@@ -65,6 +65,7 @@ export const postLogin = async (userCredentials) => {
 };
 
 export const deleteSession = async () => {
+  console.log("API_BASE_URL", API_BASE_URL);
   const response = await fetch(`${API_BASE_URL}/logout`, {
     method: "DELETE",
     credentials: "include",
