@@ -3,19 +3,20 @@ const webpack = require("webpack");
 const path = require("path");
 
 module.exports = (env, argv) => {
-  const mode = argv.mode || "development";
-  const isProduction = mode === "production";
+  const environment = argv.mode === "production" ? "production" : "development";
+  const isProduction = environment === "production";
 
-  // new variable mode =  argv.mode never undefined pass to line 30
-
-  if (mode === "production") {
-    console.log(mode, "<<<<<<<<<<<<<<<<<webpack production!!!>>>>>>>>>>>>>>>");
+  if (isProduction) {
+    console.log(
+      environment,
+      "<<<<<<<<<<<<<<<<<webpack production!!!>>>>>>>>>>>>>>>"
+    );
   } else {
-    console.log(mode, "<<<<<<<webpack dev?>>>>>>>>>");
+    console.log(environment, "<<<<<<<webpack dev?>>>>>>>>>");
   }
 
   return {
-    mode: isProduction ? "production" : "development",
+    mode: environment,
     context: __dirname,
     entry: "./frontend/recipe_thyme.jsx",
     output: {
@@ -26,7 +27,7 @@ module.exports = (env, argv) => {
     },
     plugins: [
       new webpack.DefinePlugin({
-        "process.env.NODE_ENV": JSON.stringify(mode),
+        "process.env.NODE_ENV": JSON.stringify(environment),
       }),
     ],
     module: {
