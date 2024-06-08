@@ -36,10 +36,10 @@ export const postLogin = async (userCredentials) => {
   if (process.env.NODE_ENV === "production") {
     console.log(
       process.env.NODE_ENV,
-      "<<<<<<<<<<<<<<<<<<production!!!>>>>>>>>>>>>>>>"
+      "<<<<<<<<<<<<<<<<<< sessionService production!!!>>>>>>>>>>>>>>>"
     );
   } else {
-    console.log(process.env.NODE_ENV, "<<<<<<<dev?>>>>>>>>>");
+    console.log(process.env.NODE_ENV, "<<<<<<<Session service dev?>>>>>>>>>");
   }
   const response = await fetch(`${API_BASE_URL}/login`, {
     method: "POST",
