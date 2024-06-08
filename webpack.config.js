@@ -3,6 +3,8 @@ const webpack = require("webpack");
 const path = require("path");
 
 module.exports = (env, argv) => {
+  console.log("argv.mode", argv.mode);
+  console.log("argv.mode type", typeof argv.mode);
   const environment = argv.mode === "production" ? "production" : "development";
   const isProduction = environment === "production";
 
