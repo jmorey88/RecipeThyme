@@ -36,7 +36,7 @@ export const postLogin = async (userCredentials) => {
   if (process.env.NODE_ENV === "production") {
     console.log(
       process.env.NODE_ENV,
-      "<<<<<<<<<<<<<<<<<< sessionService production!!!>>>>>>>>>>>>>>>"
+      "<<<<<<<<<<<<<<<<<<< sessionService production!!!>>>>>>>>>>>>>>>"
     );
   } else {
     console.log(process.env.NODE_ENV, "<<<<<<<Session service dev?>>>>>>>>>");
