@@ -33,7 +33,7 @@ export const postSignUp = async (userData) => {
 };
 
 export const postLogin = async (userCredentials) => {
-  console.log(process.env);
+  // console.log(process.env);
   console.log(process.env.NODE_ENV, typeof process.env.NODE_ENV);
   if (process.env.NODE_ENV === "production") {
     console.log(
