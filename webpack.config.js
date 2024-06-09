@@ -27,11 +27,11 @@ module.exports = (env, argv) => {
         : path.resolve(__dirname, "app", "javascript"),
       filename: "bundle.js",
     },
-    plugins: [
-      new webpack.DefinePlugin({
-        NODE_ENV: environment,
-      }),
-    ],
+    // plugins: [
+    //   new webpack.DefinePlugin({
+    //     NODE_ENV: environment,
+    //   }),
+    // ],
     module: {
       rules: [
         {
