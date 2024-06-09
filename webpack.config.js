@@ -29,7 +29,7 @@ module.exports = (env, argv) => {
     },
     plugins: [
       new webpack.DefinePlugin({
-        NODE_ENV: JSON.stringify(environment),
+        NODE_ENV: environment,
       }),
     ],
     module: {
