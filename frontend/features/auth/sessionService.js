@@ -33,8 +33,8 @@ export const postSignUp = async (userData) => {
 };
 
 export const postLogin = async (userCredentials) => {
+  console.log(typeof process.env.NODE_ENV);
   if (process.env.NODE_ENV === "production") {
-    console.log(typeof process.env.NODE_ENV);
     console.log(
       process.env.NODE_ENV,
       "<<<<<<<<<<<<<<<<<<< sessionService production!!!>>>>>>>>>>>>>>>"
