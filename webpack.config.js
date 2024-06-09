@@ -8,6 +8,11 @@ module.exports = (env, argv) => {
   const environment = argv.mode === "production" ? "production" : "development";
   const isProduction = environment === "production";
 
+  console.log("isProduction webpack", isProduction);
+  console.log("process.env.NODE_ENV webpack", process.env.NODE_ENV);
+  // console.log("NODE_ENV webpack", NODE_ENV);
+  console.log("environment webpack", environment);
+
   if (isProduction) {
     console.log(
       environment,
@@ -31,6 +36,11 @@ module.exports = (env, argv) => {
       new webpack.DefinePlugin({
         "process.env.NODE_ENV": JSON.stringify(environment),
       }),
+      console.log(
+        "process.env.NODE_ENV webpack in plugin:",
+        process.env.NODE_ENV
+      ),
+      console.log("json stringify environment", JSON.stringify(environment)),
     ],
     module: {
       rules: [
