@@ -34,7 +34,7 @@ module.exports = (env, argv) => {
     },
     plugins: [
       new webpack.DefinePlugin({
-        "process.env.NODE_ENV": JSON.stringigy(environment),
+        "process.env.NODE_ENV": JSON.stringify(environment),
       }),
       console.log(
         "process.env.NODE_ENV webpack in plugin:",
