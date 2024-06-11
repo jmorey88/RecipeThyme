@@ -1,5 +1,7 @@
 // webpack.config.js
 const webpack = require("webpack");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const { WebpackManifestPlugin } = require("webpack-manifest-plugin");
 const path = require("path");
 
 module.exports = (env, argv) => {
@@ -26,13 +28,23 @@ module.exports = (env, argv) => {
     mode: environment,
     context: __dirname,
     entry: "./frontend/recipe_thyme.jsx",
+    // output: {
+    //   path: isProduction
+    //     ? path.resolve(__dirname, "public", "assets")
+    //     : path.resolve(__dirname, "app", "javascript"),
+    //   filename: "bundle.js",
+    // },
     output: {
-      path: isProduction
-        ? path.resolve(__dirname, "public", "assets")
-        : path.resolve(__dirname, "app", "javascript"),
-      filename: "bundle.js",
+      path: path.resolve(__dirname, "public", "packs"),
+      filename: "[name]-[contenthash].js",
+      publicPath: "/packs/",
     },
     plugins: [
+      new CleanWebpackPlugin(),
+      new WebpackManifestPlugin({
+        fileName: "manifest.json",
+        publicPath: "/packs/",
+      }),
       new webpack.DefinePlugin({
         "process.env.NODE_ENV": JSON.stringify(environment),
       }),
