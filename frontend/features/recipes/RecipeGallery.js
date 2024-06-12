@@ -45,11 +45,11 @@ const RecipeGallery = () => {
     return searchResults?.map((recipeId) => {
       const recipe = recipes[recipeId];
       if (!recipe) {
-        return <p>Loading...</p>;
+        return <p key={recipeId}>Loading...</p>;
       }
       return (
-        <div className={styles.recipeSquareContainer}>
-          <li key={recipe.id} className={styles.recipeSquare}>
+        <div key={recipeId} className={styles.recipeSquareContainer}>
+          <li className={styles.recipeSquare}>
             <Link to={`/recipe/${recipe.id}`}>
               <img
                 src={recipe.image}
