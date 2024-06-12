@@ -290,7 +290,7 @@ label {
   width: 100%;
   margin-top: 6%;
   background: #FFE6D4;
-  height: 53vh;
+  /* height: 53vh; */
 }
 
 .instructions label {

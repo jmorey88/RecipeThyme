@@ -19,7 +19,7 @@ module RecipeThyme
     # Add CORS configuration
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins 'https://secure-fortress-86280-1b73326dc9fb.herokuapp.com/'
+        origins 'https://www.recipethyme.net'
         resource '*', headers: :any, methods: [:get, :post, :put, :patch, :delete, :options, :head]
       end
     end

@@ -1,13 +1,25 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "./sessionSlice";
 import styles from "./SessionsForm.module.css";
 
 const LoginForm = () => {
+  const location = useLocation();
+
   const [credentials, setCredentials] = useState({
     username: "",
     password: "",
   });
+
+  useEffect(() => {
+    if (location.state) {
+      setCredentials({
+        username: location.state.username || "",
+        password: location.state.password || "",
+      });
+    }
+  }, [location.state]);
 
   const dispatch = useDispatch();
 
