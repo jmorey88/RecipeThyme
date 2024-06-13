@@ -81,6 +81,7 @@ Ensure you have the following installed on your system:
 
 - **Ruby v3.1.0 and Rails v7.1.3:** Required for setting up the backend.
 - **Node.js and npm:** Needed for managing frontend dependencies.
+- **PostgreSQL:** Required for the database.
 - **Webpack v5.90.1:** Used to bundle JavaScript files and manage frontend assets efficiently. Ensure that Webpack is configured correctly to handle the application’s asset compilation and loading. 
 
 ### Configuration 
@@ -101,11 +102,6 @@ Environment Setup:
   - **DATABASE_PASSWORD:** The password for your PostgreSQL database.
 
   Make sure to set up an AWS S3 bucket and get the credentials to be able to handle image uploads.
-
-Database Configuration:
-
-- Ensure that PostgreSQL is set up on your machine. Create a database user and password if you haven't already, and add these credentials to the `.env` file.
-
 
 ### Installation
 
@@ -153,13 +149,13 @@ Visit `http://localhost:3000` in your browser to start exploring RecipeThyme. Th
 ### Recipe Management
 
 #### CRUD Operations:
-RecipeThyme enables users to fully manage their culinary creations through comprehensive CRUD (Create, Read, Update, Delete) operations. This functionality is central to the user experience, allowing for the seamless addition of new recipes, and making adjustments to existing recipes as tastes and techniques evolve. Each recipe supports detailed inputs including title, ingredients, instructions, and images, which can be meticulously managed to reflect precise culinary artistry.
+RecipeThyme allows users to manage their recipes with full CRUD (Create, Read, Update, Delete) functionality. This feature enables easy addition, adjustment, and removal of recipes. Each recipe includes details like title, ingredients, instructions, and images for accurate culinary representation.
 
 ![RecipeThyme Screenshot](https://recipe-thyme-content.s3.us-west-1.amazonaws.com/screenShots/recipeCreatePage.png)
 *RecipeThyme Create Form*
 
 #### Image Upload:
-Handling image uploads efficiently and securely is crucial for RecipeThyme. The application ensures that all uploaded images meet specific criteria for size and type before they are stored on AWS S3, which provides robust and scalable storage. This setup ensures that images are not larger than 5MB to optimize storage and loading speeds, and only JPEG and PNG formats are accepted to maintain consistency and reliability in image displays.
+Efficient and secure image uploads are crucial for RecipeThyme. The app ensures all images meet size and type criteria before storing them on AWS S3. Images must be under 5MB and in JPEG or PNG format for optimal storage and display.
 
 ![RecipeThyme Screenshot](https://recipe-thyme-content.s3.us-west-1.amazonaws.com/screenShots/recipeDetailPage.png)
 *RecipeThyme Recipe detail page with image upload*
@@ -240,12 +236,12 @@ This backend logic sets up the pagination by calculating the total number of pag
 ### Search Feature
 
 #### SQL Query Optimization:
-The search functionality in RecipeThyme is a pivotal feature that allows users to navigate through a vast collection of recipes using various filters such as keywords, tags, and a toggle for personal or community recipes. Below is an explanation and a key snippet of the SQL query from the index action in the Recipes controller that manages this feature.
+The search functionality in RecipeThyme lets users navigate a vast recipe collection using filters like keywords, tags, and toggles for personal or community recipes. Below is a key SQL query snippet from the Recipes controller's index action that manages this feature.
 
 ![RecipeThyme Screenshot](https://recipe-thyme-content.s3.us-west-1.amazonaws.com/screenShots/recipeSearchForm.png)
 *RecipeThyme Search Form*
 
-The search mechanism is designed to be both flexible and efficient, accommodating searches by keyword across multiple recipe attributes (title, description, ingredients) and filtering by tags. The ability to toggle between viewing a user's own recipes versus the entire community's recipes adds another layer of user-specific customization.
+The search mechanism is flexible and efficient, allowing keyword searches across multiple recipe attributes (title, description, ingredients) and filtering by tags. Users can toggle between viewing their own recipes and the entire community's recipes, adding a layer of user-specific customization.
 
 Here's a breakdown of the SQL logic used:
 
@@ -293,7 +289,7 @@ end
 ### Tags and Taggings
 
 #### Associations:
-RecipeThyme utilizes Rails' Active Record associations to manage the relationships between recipes, tags, taggings, and users. This setup allows for a flexible categorization of recipes, making it easier for users to organize and search for recipes based on specific tags, and fostering a sense of community and personalization as users manage their own culinary contributions.
+RecipeThyme uses Rails' Active Record associations to manage relationships between recipes, tags, taggings, and users. This setup allows flexible recipe categorization, making it easier for users to organize and search recipes by tags, and fostering community and personalization as users manage their culinary contributions.
 
 ***Association Details:***
 - **Tag Model:**
@@ -337,7 +333,7 @@ RecipeThyme utilizes Rails' Active Record associations to manage the relationshi
 
 These model associations create a robust framework for RecipeThyme's functionality:
 
-The associations in RecipeThyme facilitate efficient data management and user interactions. Tags categorize recipes, enhancing discoverability. Taggings bridge recipes and tags, allowing for flexible categorization. The User model defines ownership of recipes, supporting features like personalized galleries. This robust architecture ensures streamlined operations and enhances the user experience by allowing for easy categorization, personalization, and interaction within the culinary community.
+The associations in RecipeThyme facilitate efficient data management and user interactions. Tags enhance recipe discoverability, while taggings allow for flexible categorization. The User model defines recipe ownership, supporting personalized galleries. This robust architecture ensures streamlined operations and enhances the user experience with easy categorization and personalization.
 
 ### State Management with Redux
 Redux is pivotal in RecipeThyme for managing the application state across different components and features. Below are key insights into how Redux enhances the application:
