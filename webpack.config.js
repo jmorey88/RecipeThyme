@@ -5,35 +5,13 @@ const { WebpackManifestPlugin } = require("webpack-manifest-plugin");
 const path = require("path");
 
 module.exports = (env, argv) => {
-  console.log("argv.mode", argv.mode);
-  console.log("argv.mode type", typeof argv.mode);
   const environment = argv.mode === "production" ? "production" : "development";
   const isProduction = environment === "production";
-
-  console.log("isProduction webpack", isProduction);
-  console.log("process.env.NODE_ENV webpack", process.env.NODE_ENV);
-  // console.log("NODE_ENV webpack", NODE_ENV);
-  console.log("environment webpack", environment);
-
-  if (isProduction) {
-    console.log(
-      environment,
-      "<<<<<<<<<<<<<<<<<webpack production!!!>>>>>>>>>>>>>>>"
-    );
-  } else {
-    console.log(environment, "<<<<<<<webpack dev?>>>>>>>>>");
-  }
 
   return {
     mode: environment,
     context: __dirname,
     entry: "./frontend/recipe_thyme.jsx",
-    // output: {
-    //   path: isProduction
-    //     ? path.resolve(__dirname, "public", "assets")
-    //     : path.resolve(__dirname, "app", "javascript"),
-    //   filename: "bundle.js",
-    // },
     output: {
       path: path.resolve(__dirname, "public", "packs"),
       filename: "[name]-[contenthash].js",
@@ -48,11 +26,6 @@ module.exports = (env, argv) => {
       new webpack.DefinePlugin({
         "process.env.NODE_ENV": JSON.stringify(environment),
       }),
-      console.log(
-        "process.env.NODE_ENV webpack in plugin:",
-        process.env.NODE_ENV
-      ),
-      console.log("json stringify environment", JSON.stringify(environment)),
     ],
     module: {
       rules: [

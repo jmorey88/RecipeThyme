@@ -84,15 +84,11 @@ const EditRecipeForm = () => {
       ...formData,
       tag_ids: selectedTagIds,
     };
-    console.log("recipeData-comp:", recipeData);
     const editRecipeResult = await dispatch(
       requestEditRecipe({ recipeId, recipeData })
     );
-    console.log("formData-comp:", formData);
-    console.log("recipeData-comp:", recipeData);
     if (editRecipeResult.type.endsWith("fulfilled")) {
       alert("recipe successfully updated");
-      console.log("navigated");
       dispatch(recieveRecipeDetails(recipeId));
       navigate(`/recipe/${recipeId}`);
     } else if (editRecipeResult.type.endsWith("rejected"))

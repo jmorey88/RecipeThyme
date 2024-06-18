@@ -24,7 +24,6 @@ export const postSignUp = async (userData) => {
   });
 
   if (!response.ok) {
-    console.log("from auth service userData:", userData);
     throw new Error("Error signing up");
   }
 
@@ -33,16 +32,6 @@ export const postSignUp = async (userData) => {
 };
 
 export const postLogin = async (userCredentials) => {
-  // console.log(NODE_ENV);
-  console.log(process.env.NODE_ENV, typeof process.env.NODE_ENV);
-  if (process.env.NODE_ENV === "production") {
-    console.log(
-      process.env.NODE_ENV,
-      "<<<<<<<<<<<<<<<<<< sessionService production!!!>>>>>>>>>>>>>>>"
-    );
-  } else {
-    console.log(process.env.NODE_ENV, "<<<<<<<Session service dev?>>>>>>>>>");
-  }
   const response = await fetch(`${API_BASE_URL}/login`, {
     method: "POST",
     headers: {
@@ -58,7 +47,6 @@ export const postLogin = async (userCredentials) => {
 
   if (!response.ok) {
     const errorData = await response.json();
-    console.log("errorData:", errorData);
     throw new Error(errorData.errors || "Error logging in");
   }
 
@@ -67,7 +55,6 @@ export const postLogin = async (userCredentials) => {
 };
 
 export const deleteSession = async () => {
-  console.log("API_BASE_URL", API_BASE_URL);
   const response = await fetch(`${API_BASE_URL}/logout`, {
     method: "DELETE",
     credentials: "include",

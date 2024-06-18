@@ -60,7 +60,6 @@ export const uploadRecipeImage = async (recipeId, imageFile) => {
   const responseData = await response.json();
 
   if (!response.ok) {
-    console.log("response:", response);
     throw new Error(responseData.errors || "Failed to uplaod image.");
   }
 

@@ -9,10 +9,12 @@ import RecipeForm from "./features/recipes/RecipeCreate.js";
 import { AuthRoute, ProtectedRoute } from "./utils/routes_util.jsx";
 import EditRecipeForm from "./features/recipes/RecipeEdit.js";
 import LayoutWithFooter from "./features/footer/LayoutWithFooter.js";
+import ScrollToTop from "./utils/scrollToTopUtil.js";
 
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <NavBar />
       <Routes>
         <Route

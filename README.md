@@ -129,7 +129,7 @@ Set up the frontend:
 npm install
 
 # Use Webpack to bundle the assets
-npm run webpack
+npm run dev
 ```
 
 In a new terminal start the backend server:

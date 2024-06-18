@@ -13,7 +13,6 @@ export const searchRecipes = createAsyncThunk(
         return;
       }
 
-      console.log(searchParams);
       const response = await recipeService.fetchRecipes(searchParams);
       const recipes = response.recipes;
       const metaData = response.meta;
@@ -23,7 +22,6 @@ export const searchRecipes = createAsyncThunk(
         return { ids: recipes.map((recipe) => recipe.id), metaData };
       }
     } catch (error) {
-      console.log(`Error receiveRecipes: ${error}`);
       return thunkAPI.rejectWithValue(error.message);
     }
   }
@@ -55,7 +53,6 @@ export const searchSlice = createSlice({
       })
       .addCase(searchRecipes.fulfilled, (state, action) => {
         if (!action.payload) {
-          console.log("searchRecipes fulfiled without payload");
           return;
         }
         const { ids, metaData } = action.payload;

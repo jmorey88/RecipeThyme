@@ -52,7 +52,6 @@ const RecipeForm = () => {
       ...formData,
       tag_ids: selectedTagIds,
     };
-    console.log({ recipeData });
     const newRecipe = await dispatch(createRecipe(recipeData)).catch(
       (error) => {
         console.error("Failed to create the recipe:", error);
@@ -61,7 +60,6 @@ const RecipeForm = () => {
     const recipeId = newRecipe.payload.id;
     if (recipeId) {
       dispatch(resetSearch());
-      console.log("navigated");
       navigate(`/recipe/${recipeId}`);
     }
   };
