@@ -1,20 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { fetchRecipeTags } from "./tagService";
-import { useDispatch } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchTags } from "./TagSlice";
 import styles from "./TagSelect.module.css";
 
 const TagSelect = ({ value, onChange }) => {
   const dispatch = useDispatch();
-
-  const [tags, setTags] = useState([]);
+  const tags = useSelector((state) => state.tags.items);
+  const tagStatus = useSelector((state) => state.tags.status);
 
   useEffect(() => {
-    const loadTags = async () => {
-      const tagsData = await fetchRecipeTags();
-      setTags(tagsData);
-    };
-    loadTags();
-  }, []);
+    if (tagStatus === "idle") {
+      dispatch(fetchTags());
+    }
+  }, [tagStatus, dispatch]);
 
   const handleCheckboxChange = (tag) => {
     if (value.includes(tag)) {

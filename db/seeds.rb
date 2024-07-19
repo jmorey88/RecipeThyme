@@ -1,4 +1,4 @@
-puts "Resetting database..."
+puts 'Resetting database...'
 
 [Recipe, User, Tag, Tagging].each(&:delete_all)
 
@@ -9,40 +9,40 @@ Tag::CATEGORIES.each do |category|
 end
 puts 'Tags seeded.'
 
-puts "Generating new users..."
+puts 'Generating new users...'
 
-19.times do 
-
-  password = Faker::Internet.password(min_length: 10, max_length: 20, mix_case: true, special_characters: true)
+19.times do
+  password = Faker::Internet.password(min_length: 10, max_length: 20, mix_case: true,
+                                      special_characters: true)
 
   User.create!(
     username: Faker::Internet.unique.username,
     email: Faker::Internet.email,
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name,
-    password: password,
+    password:,
     password_confirmation: password
   )
 end
 
 User.create!(
-  username: "guest_user",
-  email: "guest_user@guest.test",
-  first_name: "Guest",
-  last_name: "User",
-  password: "guest_password",
-  password_confirmation: "guest_password"
+  username: 'guest_user',
+  email: 'guest_user@guest.test',
+  first_name: 'Guest',
+  last_name: 'User',
+  password: 'guest_password',
+  password_confirmation: 'guest_password'
 )
-
 
 # //////// Seed Recipes and Taggings //////
 puts 'Seeding Recipes...'
 recipe_data = JSON.parse(File.read(Rails.root.join('db', 'recipeSeedData.json')))
 users = User.all
-user_index = 0
 
-recipe_data.each do |recipe_attrs|
-  recipe = users[user_index].recipes.create!(
+users.each_with_index do |user, index|
+  recipe_attrs = recipe_data[index % recipe_data.max_length]
+
+  recipe = user.recipes.create!(
     title: recipe_attrs['title'],
     description: recipe_attrs['description'],
     yield: recipe_attrs['yield'],
@@ -55,10 +55,8 @@ recipe_data.each do |recipe_attrs|
 
   recipe_attrs['tag_names'].each do |tag_name|
     tag = Tag.find_by(name: tag_name)
-    Tagging.create!(recipe: recipe, tag: tag) if tag
+    Tagging.create!(recipe:, tag:) if tag
   end
-
-  user_index = (user_index + 1) % users.count
 end
 puts 'Recipes and taggings seeded.'
 

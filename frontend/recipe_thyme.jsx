@@ -3,7 +3,8 @@ import ReactDOM from "react-dom/client";
 import App from './App';
 import { store } from './app/store';
 import { Provider } from 'react-redux';
-import { setUser } from './features/auth/sessionSlice';
+import { setUser } from './features/sessions/sessionSlice';
+import './utils/global.module.css';
 
 const getCurrentUser = () => {
   const userDataElement = document.getElementById('user-data');

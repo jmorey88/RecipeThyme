@@ -1,13 +1,13 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import HomePage from "./features/home/HomePage";
-import SessionsForm from "./features/auth/SessionsForm";
-import RecipeGallery from "./features/recipes/RecipeGallery.js";
-import NavBar from "./features/navBar/NavBar";
-import RecipeDetail from "./features/recipes/RecipeDetail.js";
-import RecipeForm from "./features/recipes/RecipeCreate.js";
+import HomePage from "./features/home/index";
+import SessionsForm from "./features/sessions/index";
+import RecipeGallery from "./features/recipes/RecipeGallery/index.js";
+import NavBar from "./features/navBar/index";
+import RecipeDetail from "./features/recipes/RecipeDetail/index.js";
+import RecipeForm from "./features/recipes/RecipeCreate/index.js";
 import { AuthRoute, ProtectedRoute } from "./utils/routes_util.jsx";
-import EditRecipeForm from "./features/recipes/RecipeEdit.js";
+import EditRecipeForm from "./features/recipes/RecipeEdit/index.js";
 import LayoutWithFooter from "./features/footer/LayoutWithFooter.js";
 import ScrollToTop from "./utils/scrollToTopUtil.js";
 

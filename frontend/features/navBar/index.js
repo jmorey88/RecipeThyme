@@ -3,9 +3,8 @@ import { useNavigate } from "react-router";
 import { Link, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import styles from "./NavBar.module.css";
-import { logout } from "../auth/sessionSlice.js";
+import { logout } from "../sessions/sessionSlice.js";
 import { resetStore } from "../../utils/store_util.jsx";
-import { login } from "../auth/sessionSlice";
 
 const NavBar = () => {
   const dispatch = useDispatch();

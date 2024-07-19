@@ -13,4 +13,3 @@ json.meta do
   json.total_pages @total_pages
   json.total_entries @total_entries
 end
-

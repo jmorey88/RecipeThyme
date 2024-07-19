@@ -9,6 +9,8 @@ export const searchRecipes = createAsyncThunk(
     try {
       const { dispatch, getState, requestId } = thunkAPI;
       const { currentRequestId, loading } = getState().search;
+      // If a request is already pending and the current request ID does not match the stored request ID,
+      // the request is halted to avoid conflicts and redundant requests.
       if (loading !== "pending" || requestId !== currentRequestId) {
         return;
       }
@@ -18,6 +20,8 @@ export const searchRecipes = createAsyncThunk(
       const metaData = response.meta;
 
       if (recipes) {
+        // If the current request ID matches the stored request ID, update the state with the fetched results and metadata.
+        // Reset the loading state to 'idle' and clear the current request ID.
         dispatch(setRecipes(recipes));
         return { ids: recipes.map((recipe) => recipe.id), metaData };
       }
@@ -46,6 +50,7 @@ export const searchSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(searchRecipes.pending, (state, action) => {
+        // @@@ If the request fails, reset the loading state and store the error message for debugging.
         if (state.loading === "idle") {
           state.loading = "pending";
           state.currentRequestId = action.meta.requestId;
@@ -82,5 +87,5 @@ export const searchSlice = createSlice({
   },
 });
 
-export const { clearResults, resetSearch } = searchSlice.actions;
+export const { resetSearch } = searchSlice.actions;
 export default searchSlice.reducer;

@@ -14,15 +14,3 @@
  *= require_self
  */
 
- body {
-  /* background-size: cover; */
-  /* background-repeat: no-repeat; */
-  /* min-height: 100vh; */
- }
-
- html,
- body {
-   margin: 0;
-   padding: 0;
-   width: 100%;
- }

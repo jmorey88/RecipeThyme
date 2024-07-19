@@ -1,8 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { createLogger } from "redux-logger";
-import authReducer from "../features/auth/sessionSlice";
+import authReducer from "../features/sessions/sessionSlice";
 import recipeReducer from "../features/recipes/recipeSlice";
 import searchReducer from "../features/search/searchSlice";
+import tagReducer from "../features/Tags/TagSlice";
 
 const logger = createLogger();
 const middleware = [];
@@ -16,6 +17,7 @@ export const store = configureStore({
     session: authReducer,
     recipes: recipeReducer,
     search: searchReducer,
+    tags: tagReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(middleware),

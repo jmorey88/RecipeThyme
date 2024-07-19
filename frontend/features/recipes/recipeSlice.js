@@ -31,6 +31,7 @@ export const createRecipe = createAsyncThunk(
 export const handleRecipeImage = createAsyncThunk(
   "recipes/uploadImage",
   async ({ recipeId, imageFile }, { rejectWithValue }) => {
+    console.log("imageFile:", imageFile);
     try {
       const result = await uploadRecipeImage(recipeId, imageFile);
       return result;

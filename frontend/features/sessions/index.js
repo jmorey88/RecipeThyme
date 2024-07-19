@@ -2,7 +2,7 @@ import React from "react";
 import { useLocation } from "react-router";
 import LoginForm from "./LoginForm";
 import SignUpForm from "./SignUpForm";
-import styles from "./SessionsForm.module.css";
+import styles from "./index.module.css";
 
 const SessionsForm = () => {
   const location = useLocation();

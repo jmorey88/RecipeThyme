@@ -1,17 +1,28 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { createRecipe } from "./recipeSlice";
-import { resetSearch } from "../search/searchSlice";
-import { fetchRecipeTags } from "../Tags/tagService";
-import styles from "./RecipeCreate.module.css";
+import { useParams } from "react-router-dom";
+import { requestEditRecipe, recieveRecipeDetails } from "../recipeSlice";
+import { fetchTags } from "../../Tags/TagSlice";
+import styles from "./RecipeEdit.module.css";
 
-const RecipeForm = () => {
+const EditRecipeForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [tags, setTags] = useState([]);
+  // const [tags, setTags] = useState([]);
+  // const [selectedTagIds, setSelectedTagIds] = useState([]);
+  const tags = useSelector((state) => state.tags.items);
+  const { recipeId } = useParams();
+  const currentRecipe = useSelector(
+    (state) => state.recipes.recipeEntities[recipeId]
+  );
+
+  const allTags = useSelector((state) => state.tags.items);
+  const tagList = Object.values(allTags);
+
   const [selectedTagIds, setSelectedTagIds] = useState([]);
+
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -23,12 +34,44 @@ const RecipeForm = () => {
   });
 
   useEffect(() => {
-    const loadTags = async () => {
-      const tagsData = await fetchRecipeTags();
-      setTags(tagsData);
-    };
-    loadTags();
-  }, []);
+    if (!tags.length) {
+      dispatch(fetchTags());
+    }
+  }, [dispatch, tags]);
+
+  useEffect(() => {
+    if (currentRecipe) {
+      setFormData({
+        title: currentRecipe.title,
+        description: currentRecipe.description,
+        yield: currentRecipe.yield,
+        active_time: currentRecipe.active_time,
+        total_time: currentRecipe.total_time,
+        ingredients: currentRecipe.ingredients,
+        instructions: currentRecipe.instructions,
+      });
+    }
+  }, [currentRecipe]);
+
+  useEffect(() => {
+    if (!currentRecipe) {
+      dispatch(recieveRecipeDetails(recipeId));
+    }
+  }, [dispatch, currentRecipe]);
+
+  useEffect(() => {
+    if (currentRecipe && currentRecipe.tag_ids) {
+      setSelectedTagIds(currentRecipe.tag_ids);
+    }
+  }, [currentRecipe]);
+
+  // useEffect(() => {
+  //   const loadTags = async () => {
+  //     const tagsData = await fetchRecipeTags();
+  //     setTags(tagsData);
+  //   };
+  //   loadTags();
+  // }, []);
 
   const handleTaggingsChange = (tagId) => {
     setSelectedTagIds((prevSelectedTags) =>
@@ -52,28 +95,31 @@ const RecipeForm = () => {
       ...formData,
       tag_ids: selectedTagIds,
     };
-    const newRecipe = await dispatch(createRecipe(recipeData)).catch(
-      (error) => {
-        console.error("Failed to create the recipe:", error);
-      }
+    const editRecipeResult = await dispatch(
+      requestEditRecipe({ recipeId, recipeData })
     );
-    const recipeId = newRecipe.payload.id;
-    if (recipeId) {
-      dispatch(resetSearch());
+    if (editRecipeResult.type.endsWith("fulfilled")) {
+      alert("recipe successfully updated");
+      dispatch(recieveRecipeDetails(recipeId));
       navigate(`/recipe/${recipeId}`);
-    }
+    } else if (editRecipeResult.type.endsWith("rejected"))
+      alert(editRecipeResult.payload || "failed to edit recipe");
   };
 
+  if (!currentRecipe) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <div className={styles.createFormBackground}>
-      <form onSubmit={handleSubmit} className={styles.createForm}>
-        <h1 className={styles.title}>Create Your Recipe</h1>
+    <div className={styles.editFormBackground}>
+      <form onSubmit={handleSubmit} className={styles.editForm}>
+        <h1 className={styles.title}>Edit Your Recipe</h1>
         <div>
           <h3>Recipe Title</h3>
           <input
             type="text"
             name="title"
-            placeholder="Type your recipe name here"
+            placeholder={formData.title}
             value={formData.title}
             onChange={handleFormChange}
             maxLength="40"
@@ -86,7 +132,7 @@ const RecipeForm = () => {
           <textarea
             type="text"
             name="description"
-            placeholder="Add a breif description of your recipe"
+            placeholder={formData.description}
             cols="50"
             rows="4"
             value={formData.description}
@@ -100,7 +146,7 @@ const RecipeForm = () => {
             <input
               type="text"
               name="yield"
-              placeholder="e.g. Serves 4"
+              placeholder={formData.yield}
               value={formData.yield}
               onChange={handleFormChange}
               maxLength="20"
@@ -113,7 +159,7 @@ const RecipeForm = () => {
             <input
               type="text"
               name="active_time"
-              placeholder="e.g. 20 mins"
+              placeholder={formData.active_time}
               value={formData.active_time}
               onChange={handleFormChange}
               maxLength="20"
@@ -126,7 +172,7 @@ const RecipeForm = () => {
             <input
               type="text"
               name="total_time"
-              placeholder="e.g. 1 hour"
+              placeholder={formData.total_time}
               value={formData.total_time}
               onChange={handleFormChange}
               maxLength="20"
@@ -140,7 +186,7 @@ const RecipeForm = () => {
           <textarea
             type="text"
             name="ingredients"
-            placeholder="Add list of Ingredients"
+            placeholder={formData.ingredients}
             rows="15"
             cols="70"
             value={formData.ingredients}
@@ -153,7 +199,7 @@ const RecipeForm = () => {
           <textarea
             type="text"
             name="instructions"
-            placeholder={`Add one or multiple steps(e.g. "preheat oven to 350° F")`}
+            placeholder={formData.instructions}
             rows="15"
             cols="70"
             value={formData.instructions}
@@ -164,7 +210,7 @@ const RecipeForm = () => {
         <div className={styles.tagContainer}>
           <h3 className={styles.tagTitle}>Tags</h3>
           <div className={styles.tagBorder}>
-            {tags.map((tag) => (
+            {tagList.map((tag) => (
               <label key={tag.id} className={styles.tagItem}>
                 <input
                   type="checkbox"
@@ -176,12 +222,12 @@ const RecipeForm = () => {
             ))}
           </div>
         </div>
-        <div className={styles.createButtonContainer}>
-          <button type="submit">Create Recipe</button>
+        <div className={styles.editButtonContainer}>
+          <button type="submit">Edit Recipe</button>
         </div>
       </form>
     </div>
   );
 };
 
-export default RecipeForm;
+export default EditRecipeForm;

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { signUp } from "./sessionSlice";
-import styles from "./SessionsForm.module.css";
+import { signUp } from "../sessionSlice";
+import styles from "../index.module.css";
 
 const SignUpForm = () => {
   const [userData, setUserData] = useState({

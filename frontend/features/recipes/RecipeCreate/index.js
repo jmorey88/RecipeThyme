@@ -1,23 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { useParams } from "react-router-dom";
-import { requestEditRecipe, recieveRecipeDetails } from "./recipeSlice";
-import { resetSearch } from "../search/searchSlice";
-import { fetchRecipeTags } from "../Tags/tagService";
-import styles from "./RecipeEdit.module.css";
+import { createRecipe } from "../recipeSlice";
+import { resetSearch } from "../../search/searchSlice";
+import { fetchTags } from "../../Tags/TagSlice";
+import styles from "./RecipeCreate.module.css";
 
-const EditRecipeForm = () => {
+const RecipeForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [tags, setTags] = useState([]);
+  // const [tags, setTags] = useState([]);
+  const tags = useSelector((state) => state.tags.items);
   const [selectedTagIds, setSelectedTagIds] = useState([]);
-  const { recipeId } = useParams();
-  const currentRecipe = useSelector(
-    (state) => state.recipes.recipeEntities[recipeId]
-  );
-
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -29,38 +24,10 @@ const EditRecipeForm = () => {
   });
 
   useEffect(() => {
-    if (currentRecipe) {
-      setFormData({
-        title: currentRecipe.title,
-        description: currentRecipe.description,
-        yield: currentRecipe.yield,
-        active_time: currentRecipe.active_time,
-        total_time: currentRecipe.total_time,
-        ingredients: currentRecipe.ingredients,
-        instructions: currentRecipe.instructions,
-      });
+    if (!tags.length) {
+      dispatch(fetchTags());
     }
-  }, [currentRecipe]);
-
-  useEffect(() => {
-    if (!currentRecipe) {
-      dispatch(recieveRecipeDetails(recipeId));
-    }
-  }, [dispatch, currentRecipe]);
-
-  useEffect(() => {
-    if (currentRecipe && currentRecipe.tag_ids) {
-      setSelectedTagIds(currentRecipe.tag_ids);
-    }
-  }, [currentRecipe]);
-
-  useEffect(() => {
-    const loadTags = async () => {
-      const tagsData = await fetchRecipeTags();
-      setTags(tagsData);
-    };
-    loadTags();
-  }, []);
+  }, [dispatch, tags]);
 
   const handleTaggingsChange = (tagId) => {
     setSelectedTagIds((prevSelectedTags) =>
@@ -84,31 +51,28 @@ const EditRecipeForm = () => {
       ...formData,
       tag_ids: selectedTagIds,
     };
-    const editRecipeResult = await dispatch(
-      requestEditRecipe({ recipeId, recipeData })
+    const newRecipe = await dispatch(createRecipe(recipeData)).catch(
+      (error) => {
+        console.error("Failed to create the recipe:", error);
+      }
     );
-    if (editRecipeResult.type.endsWith("fulfilled")) {
-      alert("recipe successfully updated");
-      dispatch(recieveRecipeDetails(recipeId));
+    const recipeId = newRecipe.payload.id;
+    if (recipeId) {
+      dispatch(resetSearch());
       navigate(`/recipe/${recipeId}`);
-    } else if (editRecipeResult.type.endsWith("rejected"))
-      alert(editRecipeResult.payload || "failed to edit recipe-comp");
+    }
   };
 
-  if (!currentRecipe) {
-    return <div>Loading...</div>;
-  }
-
   return (
-    <div className={styles.editFormBackground}>
-      <form onSubmit={handleSubmit} className={styles.editForm}>
-        <h1 className={styles.title}>Edit Your Recipe</h1>
+    <div className={styles.createFormBackground}>
+      <form onSubmit={handleSubmit} className={styles.createForm}>
+        <h1 className={styles.title}>Create Your Recipe</h1>
         <div>
           <h3>Recipe Title</h3>
           <input
             type="text"
             name="title"
-            placeholder={formData.title}
+            placeholder="Type your recipe name here"
             value={formData.title}
             onChange={handleFormChange}
             maxLength="40"
@@ -121,7 +85,7 @@ const EditRecipeForm = () => {
           <textarea
             type="text"
             name="description"
-            placeholder={formData.description}
+            placeholder="Add a breif description of your recipe"
             cols="50"
             rows="4"
             value={formData.description}
@@ -135,7 +99,7 @@ const EditRecipeForm = () => {
             <input
               type="text"
               name="yield"
-              placeholder={formData.yield}
+              placeholder="e.g. Serves 4"
               value={formData.yield}
               onChange={handleFormChange}
               maxLength="20"
@@ -148,7 +112,7 @@ const EditRecipeForm = () => {
             <input
               type="text"
               name="active_time"
-              placeholder={formData.active_time}
+              placeholder="e.g. 20 mins"
               value={formData.active_time}
               onChange={handleFormChange}
               maxLength="20"
@@ -161,7 +125,7 @@ const EditRecipeForm = () => {
             <input
               type="text"
               name="total_time"
-              placeholder={formData.total_time}
+              placeholder="e.g. 1 hour"
               value={formData.total_time}
               onChange={handleFormChange}
               maxLength="20"
@@ -175,7 +139,7 @@ const EditRecipeForm = () => {
           <textarea
             type="text"
             name="ingredients"
-            placeholder={formData.ingredients}
+            placeholder="Add list of Ingredients"
             rows="15"
             cols="70"
             value={formData.ingredients}
@@ -188,7 +152,7 @@ const EditRecipeForm = () => {
           <textarea
             type="text"
             name="instructions"
-            placeholder={formData.instructions}
+            placeholder={`Add one or multiple steps(e.g. "preheat oven to 350° F")`}
             rows="15"
             cols="70"
             value={formData.instructions}
@@ -211,12 +175,12 @@ const EditRecipeForm = () => {
             ))}
           </div>
         </div>
-        <div className={styles.editButtonContainer}>
-          <button type="submit">Edit Recipe</button>
+        <div className={styles.createButtonContainer}>
+          <button type="submit">Create Recipe</button>
         </div>
       </form>
     </div>
   );
 };
 
-export default EditRecipeForm;
+export default RecipeForm;

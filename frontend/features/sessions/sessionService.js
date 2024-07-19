@@ -1,16 +1,9 @@
-// const API_BASE_URL =
-// process.env.NODE_ENV === "production"
-// ? "https://secure-fortress-86280.herokuapp.com/api"
-// : "http://localhost:3000/api";
-
 import API_BASE_URL from "../../utils/hostNameUtil";
+import { fetchWithCsrf } from "../../utils/csrfUtil";
 
 export const postSignUp = async (userData) => {
-  const response = await fetch(`${API_BASE_URL}/users`, {
+  const response = await fetchWithCsrf(`${API_BASE_URL}/users`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
     body: JSON.stringify({
       user: {
         first_name: userData.firstName,
@@ -32,11 +25,8 @@ export const postSignUp = async (userData) => {
 };
 
 export const postLogin = async (userCredentials) => {
-  const response = await fetch(`${API_BASE_URL}/login`, {
+  const response = await fetchWithCsrf(`${API_BASE_URL}/login`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
     body: JSON.stringify({
       user: {
         username: userCredentials.username,
@@ -55,17 +45,14 @@ export const postLogin = async (userCredentials) => {
 };
 
 export const deleteSession = async () => {
-  const response = await fetch(`${API_BASE_URL}/logout`, {
+  const response = await fetchWithCsrf(`${API_BASE_URL}/logout`, {
     method: "DELETE",
     credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-    },
   });
 
   if (!response.ok) {
     const errorData = await response.json();
-    throw new Error(errorData.message || "Error loggin out");
+    throw new Error(errorData.message || "Error logging out");
   }
 
   const data = await response.json();

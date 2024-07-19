@@ -1,7 +1,8 @@
 {
   "name": "recipethyme",
   "version": "1.0.0",
-  "description": "This README would normally document whatever steps are necessary to get the application up and running.",
+  "description":  "RecipeThyme is a web application for managing and sharing recipes. It allows users to create, store, and organize their favorite recipes with a user-friendly interface, powered by React and Redux.",
+
   "main": "index.js",
   "directories": {
     "lib": "lib",

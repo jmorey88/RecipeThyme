@@ -6,37 +6,30 @@ import {
   recieveRecipeDetails,
   handleRecipeImage,
   requestDeleteRecipe,
-} from "./recipeSlice";
+} from "../recipeSlice";
+import { fetchTags } from "../../Tags/TagSlice";
 import styles from "./RecipeDetail.module.css";
-import { fetchRecipeTagsByRecipeId } from "./RecipeService";
 
 const RecipeDetail = () => {
   const { recipeId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [tags, setTags] = useState([]);
+  // const [tags, setTags] = useState([]);
   const recipe = useSelector((state) => state.recipes.recipeEntities[recipeId]);
   const currentUserId = useSelector((state) => state.session.currentUser.id);
+  const tags = useSelector((state) => state.tags.items);
 
   useEffect(() => {
     if (!recipe || !recipe.detailed) {
       dispatch(recieveRecipeDetails(recipeId));
     }
-  }, [dispatch, recipe]);
+  }, [dispatch, recipe, recipeId]);
 
   useEffect(() => {
-    if (recipeId) {
-      const loadTags = async () => {
-        try {
-          const tagsData = await fetchRecipeTagsByRecipeId(recipeId);
-          setTags(tagsData);
-        } catch (error) {
-          console.error("Failed to fetch tags:", error);
-        }
-      };
-      loadTags();
+    if (!tags.length) {
+      dispatch(fetchTags());
     }
-  }, [recipeId]);
+  }, [dispatch, tags]);
 
   const handleDelete = async () => {
     const isConfirmed = window.confirm(
@@ -56,6 +49,7 @@ const RecipeDetail = () => {
 
   const handleImageChange = async (e) => {
     const file = e.target.files[0];
+    console.log("file:", file);
     if (file) {
       const actionResult = await dispatch(
         handleRecipeImage({ recipeId, imageFile: file })
@@ -72,6 +66,17 @@ const RecipeDetail = () => {
   };
 
   const isAuthor = currentUserId === recipe?.author_id;
+
+  const getTagNames = (tagIds) => {
+    return tagIds
+      .map((id) => {
+        const tag = tags.find((tag) => tag.id === id);
+        return tag ? tag.name : null;
+      })
+      .filter((name) => name !== null);
+  };
+
+  const tagNames = getTagNames(recipe?.tag_ids || []);
 
   if (!recipe) {
     return <div>Loading...</div>;
@@ -137,11 +142,19 @@ const RecipeDetail = () => {
           ) : null}
         </div>
         <div className={styles.tagsContainer}>
-          {tags.map((tag) => (
-            <div key={tag.id} className={styles.tagNameContainer}>
-              {tag.name}
-            </div>
-          ))}
+          {
+            /* {recipe.tag_names &&
+            recipe.tag_names.map((tag, index) => (
+              <div key={index} className={styles.tagNameContainer}>
+                {tag}
+              </div>
+            ))} */
+            tagNames.map((tag, index) => (
+              <div key={index} className={styles.tagNameContainer}>
+                {tag}
+              </div>
+            ))
+          }
         </div>
       </div>
       <div className={styles.description}>

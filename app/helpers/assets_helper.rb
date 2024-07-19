@@ -1,4 +1,3 @@
-# app/helpers/assets_helper.rb
 module AssetsHelper
   def asset_manifest
     @asset_manifest ||= JSON.parse(File.read(Rails.root.join('public', 'packs', 'manifest.json')))

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "./sessionSlice";
-import styles from "./SessionsForm.module.css";
+import { login } from "../sessionSlice";
+import styles from "../index.module.css";
 
 const LoginForm = () => {
   const location = useLocation();

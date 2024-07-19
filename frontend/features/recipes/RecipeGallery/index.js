@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useDispatch, useSelector } from "react-redux";
-import { searchRecipes, resetSearch } from "../search/searchSlice";
+import { searchRecipes, resetSearch } from "../../search/searchSlice";
 import styles from "./RecipeGallery.module.css";
-import SearchForm from "../search/SearchForm";
+import SearchForm from "../../search";
 
 const RecipeGallery = () => {
   const dispatch = useDispatch();
