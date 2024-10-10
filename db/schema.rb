@@ -10,49 +10,49 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 20_240_414_060_807) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_14_060807) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension 'plpgsql'
+  enable_extension "plpgsql"
 
-  create_table 'recipes', force: :cascade do |t|
-    t.string 'title'
-    t.text 'description'
-    t.string 'yield'
-    t.string 'active_time'
-    t.string 'total_time'
-    t.text 'ingredients'
-    t.text 'instructions'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.bigint 'author_id'
-    t.string 'image'
-    t.index ['author_id'], name: 'index_recipes_on_author_id'
+  create_table "recipes", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.string "yield"
+    t.string "active_time"
+    t.string "total_time"
+    t.text "ingredients"
+    t.text "instructions"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "author_id"
+    t.string "image"
+    t.index ["author_id"], name: "index_recipes_on_author_id"
   end
 
-  create_table 'taggings', force: :cascade do |t|
-    t.integer 'recipe_id'
-    t.integer 'tag_id'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
+  create_table "taggings", force: :cascade do |t|
+    t.integer "recipe_id"
+    t.integer "tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table 'tags', force: :cascade do |t|
-    t.string 'name'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table 'users', force: :cascade do |t|
-    t.string 'first_name'
-    t.string 'last_name'
-    t.string 'username'
-    t.string 'string'
-    t.string 'email'
-    t.string 'password_digest'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.string 'session_token'
+  create_table "users", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "username"
+    t.string "string"
+    t.string "email"
+    t.string "password_digest"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "session_token"
   end
 
-  add_foreign_key 'recipes', 'users', column: 'author_id'
+  add_foreign_key "recipes", "users", column: "author_id"
 end

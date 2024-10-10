@@ -5,6 +5,7 @@ import { store } from './app/store';
 import { Provider } from 'react-redux';
 import { setUser } from './features/sessions/sessionSlice';
 import './utils/global.module.css';
+// import { unstable_trace as trace } from 'scheduler/tracing';
 
 const getCurrentUser = () => {
   const userDataElement = document.getElementById('user-data');

@@ -59,6 +59,7 @@ module.exports = (env, argv) => {
     devtool: isProduction ? "source-map" : "eval-source-map",
     resolve: {
       extensions: [".js", ".jsx"],
+      // modules: [path.resolve(__dirname, "node_modules"), "node_modules"],
     },
   };
 };

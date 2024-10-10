@@ -39,8 +39,10 @@ puts 'Seeding Recipes...'
 recipe_data = JSON.parse(File.read(Rails.root.join('db', 'recipeSeedData.json')))
 users = User.all
 
-users.each_with_index do |user, index|
-  recipe_attrs = recipe_data[index % recipe_data.max_length]
+# users.each_with_index do |user, index|
+#   recipe_attrs = recipe_data[index % recipe_data.max_length]
+recipe_data.each_with_index do |recipe_attrs, index|
+  user = users[index % users.length]
 
   recipe = user.recipes.create!(
     title: recipe_attrs['title'],
