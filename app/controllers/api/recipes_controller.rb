@@ -1,5 +1,5 @@
 require 'aws-sdk-s3'
-require 'benchmark'
+# require 'benchmark'
 class Api::RecipesController < ApplicationController
   before_action :authenticate_user!, except: %i[show index]
   before_action :set_recipe, only: %i[show update destroy upload_image]
@@ -23,29 +23,30 @@ class Api::RecipesController < ApplicationController
   end
 
   def show
-    Benchmark.bm do |x|
-      x.report("show action:") do
-        @recipe = Recipe.find(params[:id])
-      end
-    end
+    # Benchmark.bm do |x|
+    # x.report("show action:") do
+    @recipe = Recipe.find(params[:id])
+    # end
+    # end
   end
 
   def index
-    Benchmark.bm do |x|
-      x.report("index action:") do
-        page_size = params.fetch(:page_size, 20).to_i
-        page_number = [params.fetch(:page, 1).to_i, 1].max
-        offset = (page_number - 1) * page_size
+    # Benchmark.bm do |x|
+    # x.report("index action:") do
+    page_size = params.fetch(:page_size, 20).to_i
+    page_number = [params.fetch(:page, 1).to_i, 1].max
+    offset = (page_number - 1) * page_size
 
-        recipes_query = build_recipes_query
-        puts "recipes_query: #{recipes_query}"
-        @total_entries = recipes_query.count
-        puts "@total_entries #{@total_entries}"
-        @total_pages = (@total_entries / page_size.to_f).ceil
-        @current_page = page_number
-        @recipes = recipes_query.select(:id, :title, :description, :author_id, :image, :yield).order(updated_at: :desc).limit(page_size).offset(offset)
-      end
-    end
+    recipes_query = build_recipes_query
+    puts "recipes_query: #{recipes_query}"
+    @total_entries = recipes_query.count
+    puts "@total_entries #{@total_entries}"
+    @total_pages = (@total_entries / page_size.to_f).ceil
+    @current_page = page_number
+    @recipes = recipes_query.select(:id, :title, :description, :author_id, :image,
+                                    :yield).order(updated_at: :desc).limit(page_size).offset(offset)
+    # end
+    # end
   end
 
   def update
@@ -94,7 +95,6 @@ class Api::RecipesController < ApplicationController
   end
 
   def set_recipe
-
     @recipe = Recipe.find_by(id: params[:id])
   end
 
